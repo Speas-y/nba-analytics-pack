@@ -1,0 +1,12 @@
+# 可选：生成 br-slug → NBA PERSON_ID 映射（scripts/build_br_slug_to_nba_id.py）
+nba-api>=1.4.1
+# 爬虫成功后后台生成 player-zh.json（scripts/rebuild_player_zh_deepl.py）
+deep-translator>=1.11.4
+
+pandas>=2.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+# 绕 Cloudflare 优先用 curl_cffi；其次 cloudscraper
+curl-cffi>=0.7.4
+cloudscraper>=1.2.71

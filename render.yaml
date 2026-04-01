@@ -1,0 +1,50 @@
+# Render Blueprint：Web（Docker）+ 免费 PostgreSQL
+# 部署后请在 Vercel 设置 VITE_API_BASE=https://<本服务名>.onrender.com/api
+# 若使用「更新数据」，将此处生成的 CRAWLER_REFRESH_TOKEN 同步到 Vercel 的 VITE_REFRESH_TOKEN
+version: "1"
+
+databases:
+  - name: nba-analytics-db
+    plan: free
+    databaseName: nba_analytics
+    user: nba_analytics
+
+services:
+  - type: web
+    name: nba-analytics-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/public/nba/seasons
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+      - key: RENDER_DB_HOST
+        fromDatabase:
+          name: nba-analytics-db
+          property: host
+      - key: RENDER_DB_PORT
+        fromDatabase:
+          name: nba-analytics-db
+          property: port
+      - key: RENDER_DB_NAME
+        fromDatabase:
+          name: nba-analytics-db
+          property: database
+      - key: RENDER_DB_USER
+        fromDatabase:
+          name: nba-analytics-db
+          property: user
+      - key: RENDER_DB_PASSWORD
+        fromDatabase:
+          name: nba-analytics-db
+          property: password
+      - key: FRONTEND_ORIGIN
+        value: https://nbasjfx.vercel.app
+      - key: CRAWLER_ASYNC
+        value: "true"
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: CRAWLER_REFRESH_TOKEN
+        generateValue: true

@@ -1,0 +1,11 @@
+# Render：托管 PostgreSQL + Docker。启动时设置 SPRING_PROFILES_ACTIVE=render
+spring:
+  datasource:
+    url: jdbc:postgresql://${RENDER_DB_HOST}:${RENDER_DB_PORT}/${RENDER_DB_NAME}?sslmode=require
+    username: ${RENDER_DB_USER}
+    password: ${RENDER_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

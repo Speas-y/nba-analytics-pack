@@ -1,0 +1,7 @@
+.venv/
+# 跟踪 output/*.json 作为种子数据；其它产物仍忽略
+output/*
+!output/*.json
+output_test/
+__pycache__/
+*.pyc

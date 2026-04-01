@@ -1,0 +1,22 @@
+.DS_Store
+.env
+.env.local
+*.log
+
+# JVM / IDE
+**/target/
+**/.idea/
+*.iml
+
+# Node
+**/node_modules/
+**/dist/
+
+# Python
+**/.venv/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+
+# 爬虫：不提交可再生的 CSV，保留 JSON 供 Docker/演示
+爬虫/output/*.csv

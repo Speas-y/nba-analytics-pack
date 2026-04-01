@@ -1,0 +1,12 @@
+.git
+**/.DS_Store
+前端
+前端/node_modules
+nba-pc-analytics
+spring-backend/target
+spring-backend/.idea
+爬虫/.venv
+爬虫/**/__pycache__
+爬虫/**/.pytest_cache
+**/*.md
+terminals

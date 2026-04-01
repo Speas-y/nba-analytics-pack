@@ -1,0 +1,41 @@
+server:
+  port: ${PORT:3000}
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: nba-analytics-api
+  jpa:
+    hibernate:
+      ddl-auto: update
+      # 保留 @Table 里的大小写，与 Prisma 的 User / RefreshSession 一致，避免生成小写 user 导致 “already exists”
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/nba_analytics?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
+    # 本机 Homebrew MySQL 多为 root；若你用 Nest 示例里的 nba 账号，在运行配置或 .env 里改回即可
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+
+# 与 Nest .env 对齐的含义（JWT / CORS / 爬虫）
+app:
+  jwt:
+    secret: ${JWT_ACCESS_SECRET:change-me-access-secret}
+    access-expires: ${JWT_ACCESS_EXPIRES:15m}
+  refresh:
+    days: ${REFRESH_DAYS:14}
+  cors:
+    frontend-origin: ${FRONTEND_ORIGIN:http://localhost:5173}
+    dashboard-origins: ${DASHBOARD_ORIGINS:http://127.0.0.1:8766,http://localhost:8766}
+  crawler:
+    refresh-token: ${CRAWLER_REFRESH_TOKEN:}
+    home: ${NBA_CRAWLER_HOME:}
+    output-dir: ${NBA_CRAWLER_OUTPUT_DIR:}
+    python: ${NBA_CRAWLER_PYTHON:}
+    # 云托管（如 Render）HTTP 超时短：设为 true 时 POST /data/refresh 立即返回，爬虫在后台跑完。
+    async: ${CRAWLER_ASYNC:false}
