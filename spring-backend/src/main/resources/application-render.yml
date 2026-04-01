@@ -1,10 +1,6 @@
-# Render：托管 PostgreSQL + Docker。启动时设置 SPRING_PROFILES_ACTIVE=render
+# Render 手动 Web Service：数据源由 RenderDatabaseConfig 从环境变量生成（见该类注释）
+# 仅需在此配置 JPA 方言；勿与本地 application.yml 的 MySQL 混用同一进程
 spring:
-  datasource:
-    url: jdbc:postgresql://${RENDER_DB_HOST}:${RENDER_DB_PORT}/${RENDER_DB_NAME}?sslmode=require
-    username: ${RENDER_DB_USER}
-    password: ${RENDER_DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
