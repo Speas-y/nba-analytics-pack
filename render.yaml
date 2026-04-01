@@ -1,13 +1,8 @@
-# Render Blueprint：Web（Docker）+ 免费 PostgreSQL
-# 部署后请在 Vercel 设置 VITE_API_BASE=https://<本服务名>.onrender.com/api
-# 若使用「更新数据」，将此处生成的 CRAWLER_REFRESH_TOKEN 同步到 Vercel 的 VITE_REFRESH_TOKEN
+# 无信用卡时不要用 Render 自带 PostgreSQL（常需绑卡）。请用手动 New Web Service + Docker，
+# 并设置 SPRING_PROFILES_ACTIVE=h2（嵌入式数据库，见 spring-backend/application-h2.yml）。
+# 若可用外部免费 Postgres（如 Neon 注册后给的连接串），则用 SPRING_PROFILES_ACTIVE=render + DATABASE_URL。
+# Vercel：VITE_API_BASE=https://<服务名>.onrender.com/api
 version: "1"
-
-databases:
-  - name: nba-analytics-db
-    plan: free
-    databaseName: nba_analytics
-    user: nba_analytics
 
 services:
   - type: web
@@ -19,27 +14,7 @@ services:
     healthCheckPath: /api/public/nba/seasons
     envVars:
       - key: SPRING_PROFILES_ACTIVE
-        value: render
-      - key: RENDER_DB_HOST
-        fromDatabase:
-          name: nba-analytics-db
-          property: host
-      - key: RENDER_DB_PORT
-        fromDatabase:
-          name: nba-analytics-db
-          property: port
-      - key: RENDER_DB_NAME
-        fromDatabase:
-          name: nba-analytics-db
-          property: database
-      - key: RENDER_DB_USER
-        fromDatabase:
-          name: nba-analytics-db
-          property: user
-      - key: RENDER_DB_PASSWORD
-        fromDatabase:
-          name: nba-analytics-db
-          property: password
+        value: h2
       - key: FRONTEND_ORIGIN
         value: https://nbasjfx.vercel.app
       - key: CRAWLER_ASYNC

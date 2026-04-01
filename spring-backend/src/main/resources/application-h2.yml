@@ -1,0 +1,15 @@
+# 嵌入式 H2：无需 Render Postgres / 无需外链数据库（适合无法绑信用卡的场景）
+# Render / 本地均可用：SPRING_PROFILES_ACTIVE=h2
+# 说明：默认内存库，实例休眠重启或重新部署后「注册用户」会清空；公开榜单等仍读仓库内爬虫 JSON。
+spring:
+  datasource:
+    url: jdbc:h2:mem:nbadb;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
