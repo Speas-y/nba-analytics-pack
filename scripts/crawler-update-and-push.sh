@@ -24,7 +24,8 @@ if ! git rev-parse --is-inside-work-tree &>/dev/null; then
 fi
 
 echo "运行爬虫（Basketball-Reference）…"
-"$PY" "$CRAWLER/nba_player_crawler.py" "$@"
+# 必须在 爬虫/output 写入（与 Docker COPY、git add 路径一致；勿依赖进程 cwd 默认的 ./output）
+"$PY" "$CRAWLER/nba_player_crawler.py" --out-dir "$CRAWLER/output" "$@"
 
 echo "尝试生成 nba-pc-analytics 映射（失败不阻断提交 output）…"
 "$PY" "$CRAWLER/scripts/rebuild_front_assets.py" || true

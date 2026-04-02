@@ -12,6 +12,9 @@
 **/node_modules/
 **/dist/
 
+# 误在仓库根运行时产生的 output（正确目录为 爬虫/output）
+/output/
+
 # Python
 **/.venv/
 **/__pycache__/

@@ -25,9 +25,9 @@
     "nbaAbbr": "SAS",
     "conference": "West",
     "confRank": 2,
-    "wins": 57,
+    "wins": 58,
     "losses": 18,
-    "winPct": 0.76
+    "winPct": 0.763
   },
   {
     "teamId": 1610612738,
@@ -35,9 +35,9 @@
     "nbaAbbr": "BOS",
     "conference": "East",
     "confRank": 2,
-    "wins": 50,
+    "wins": 51,
     "losses": 25,
-    "winPct": 0.667
+    "winPct": 0.671
   },
   {
     "teamId": 1610612747,
@@ -55,9 +55,9 @@
     "nbaAbbr": "NYK",
     "conference": "East",
     "confRank": 3,
-    "wins": 48,
+    "wins": 49,
     "losses": 28,
-    "winPct": 0.632
+    "winPct": 0.636
   },
   {
     "teamId": 1610612739,
@@ -75,19 +75,19 @@
     "nbaAbbr": "DEN",
     "conference": "West",
     "confRank": 4,
-    "wins": 48,
+    "wins": 49,
     "losses": 28,
-    "winPct": 0.632
+    "winPct": 0.636
   },
   {
-    "teamId": 1610612750,
-    "abbr": "MIN",
-    "nbaAbbr": "MIN",
+    "teamId": 1610612745,
+    "abbr": "HOU",
+    "nbaAbbr": "HOU",
     "conference": "West",
     "confRank": 5,
-    "wins": 46,
+    "wins": 47,
     "losses": 29,
-    "winPct": 0.613
+    "winPct": 0.618
   },
   {
     "teamId": 1610612737,
@@ -95,24 +95,14 @@
     "nbaAbbr": "ATL",
     "conference": "East",
     "confRank": 5,
-    "wins": 43,
+    "wins": 44,
     "losses": 33,
-    "winPct": 0.566
+    "winPct": 0.571
   },
   {
-    "teamId": 1610612761,
-    "abbr": "TOR",
-    "nbaAbbr": "TOR",
-    "conference": "East",
-    "confRank": 6,
-    "wins": 42,
-    "losses": 33,
-    "winPct": 0.56
-  },
-  {
-    "teamId": 1610612745,
-    "abbr": "HOU",
-    "nbaAbbr": "HOU",
+    "teamId": 1610612750,
+    "abbr": "MIN",
+    "nbaAbbr": "MIN",
     "conference": "West",
     "confRank": 6,
     "wins": 46,
@@ -124,10 +114,10 @@
     "abbr": "PHI",
     "nbaAbbr": "PHI",
     "conference": "East",
-    "confRank": 7,
-    "wins": 41,
+    "confRank": 6,
+    "wins": 42,
     "losses": 34,
-    "winPct": 0.547
+    "winPct": 0.553
   },
   {
     "teamId": 1610612756,
@@ -140,6 +130,26 @@
     "winPct": 0.553
   },
   {
+    "teamId": 1610612761,
+    "abbr": "TOR",
+    "nbaAbbr": "TOR",
+    "conference": "East",
+    "confRank": 7,
+    "wins": 42,
+    "losses": 34,
+    "winPct": 0.553
+  },
+  {
+    "teamId": 1610612766,
+    "abbr": "CHO",
+    "nbaAbbr": "CHA",
+    "conference": "East",
+    "confRank": 8,
+    "wins": 40,
+    "losses": 36,
+    "winPct": 0.526
+  },
+  {
     "teamId": 1610612746,
     "abbr": "LAC",
     "nbaAbbr": "LAC",
@@ -148,16 +158,6 @@
     "wins": 39,
     "losses": 37,
     "winPct": 0.513
-  },
-  {
-    "teamId": 1610612753,
-    "abbr": "ORL",
-    "nbaAbbr": "ORL",
-    "conference": "East",
-    "confRank": 8,
-    "wins": 40,
-    "losses": 35,
-    "winPct": 0.533
   },
   {
     "teamId": 1610612757,
@@ -170,14 +170,24 @@
     "winPct": 0.506
   },
   {
-    "teamId": 1610612748,
-    "abbr": "MIA",
-    "nbaAbbr": "MIA",
+    "teamId": 1610612753,
+    "abbr": "ORL",
+    "nbaAbbr": "ORL",
     "conference": "East",
     "confRank": 9,
     "wins": 40,
     "losses": 36,
     "winPct": 0.526
+  },
+  {
+    "teamId": 1610612748,
+    "abbr": "MIA",
+    "nbaAbbr": "MIA",
+    "conference": "East",
+    "confRank": 10,
+    "wins": 40,
+    "losses": 37,
+    "winPct": 0.519
   },
   {
     "teamId": 1610612744,
@@ -186,28 +196,18 @@
     "conference": "West",
     "confRank": 10,
     "wins": 36,
-    "losses": 39,
-    "winPct": 0.48
+    "losses": 40,
+    "winPct": 0.474
   },
   {
-    "teamId": 1610612766,
-    "abbr": "CHO",
-    "nbaAbbr": "CHA",
-    "conference": "East",
-    "confRank": 10,
-    "wins": 40,
-    "losses": 36,
-    "winPct": 0.526
-  },
-  {
-    "teamId": 1610612763,
-    "abbr": "MEM",
-    "nbaAbbr": "MEM",
+    "teamId": 1610612740,
+    "abbr": "NOP",
+    "nbaAbbr": "NOP",
     "conference": "West",
     "confRank": 11,
     "wins": 25,
-    "losses": 50,
-    "winPct": 0.333
+    "losses": 51,
+    "winPct": 0.329
   },
   {
     "teamId": 1610612749,
@@ -216,18 +216,8 @@
     "conference": "East",
     "confRank": 11,
     "wins": 30,
-    "losses": 45,
-    "winPct": 0.4
-  },
-  {
-    "teamId": 1610612740,
-    "abbr": "NOP",
-    "nbaAbbr": "NOP",
-    "conference": "West",
-    "confRank": 12,
-    "wins": 25,
-    "losses": 51,
-    "winPct": 0.329
+    "losses": 46,
+    "winPct": 0.395
   },
   {
     "teamId": 1610612741,
@@ -236,8 +226,28 @@
     "conference": "East",
     "confRank": 12,
     "wins": 29,
-    "losses": 46,
-    "winPct": 0.387
+    "losses": 47,
+    "winPct": 0.382
+  },
+  {
+    "teamId": 1610612763,
+    "abbr": "MEM",
+    "nbaAbbr": "MEM",
+    "conference": "West",
+    "confRank": 12,
+    "wins": 25,
+    "losses": 51,
+    "winPct": 0.329
+  },
+  {
+    "teamId": 1610612754,
+    "abbr": "IND",
+    "nbaAbbr": "IND",
+    "conference": "East",
+    "confRank": 13,
+    "wins": 18,
+    "losses": 58,
+    "winPct": 0.237
   },
   {
     "teamId": 1610612742,
@@ -254,20 +264,10 @@
     "abbr": "BRK",
     "nbaAbbr": "BKN",
     "conference": "East",
-    "confRank": 13,
+    "confRank": 14,
     "wins": 18,
     "losses": 58,
     "winPct": 0.237
-  },
-  {
-    "teamId": 1610612764,
-    "abbr": "WAS",
-    "nbaAbbr": "WAS",
-    "conference": "East",
-    "confRank": 14,
-    "wins": 17,
-    "losses": 58,
-    "winPct": 0.227
   },
   {
     "teamId": 1610612762,
@@ -276,18 +276,18 @@
     "conference": "West",
     "confRank": 14,
     "wins": 21,
-    "losses": 55,
-    "winPct": 0.276
+    "losses": 56,
+    "winPct": 0.273
   },
   {
-    "teamId": 1610612754,
-    "abbr": "IND",
-    "nbaAbbr": "IND",
+    "teamId": 1610612764,
+    "abbr": "WAS",
+    "nbaAbbr": "WAS",
     "conference": "East",
     "confRank": 15,
     "wins": 17,
-    "losses": 58,
-    "winPct": 0.227
+    "losses": 59,
+    "winPct": 0.224
   },
   {
     "teamId": 1610612758,
@@ -295,8 +295,8 @@
     "nbaAbbr": "SAC",
     "conference": "West",
     "confRank": 15,
-    "wins": 19,
+    "wins": 20,
     "losses": 57,
-    "winPct": 0.25
+    "winPct": 0.26
   }
 ]
