@@ -14,3 +14,5 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        # H2 保留字 User 等：未加引号的表名会触发 Syntax error expected "identifier"
+        globally_quoted_identifiers: true
