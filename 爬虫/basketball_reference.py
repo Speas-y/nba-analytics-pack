@@ -5,6 +5,8 @@
 """
 from __future__ import annotations
 
+import os
+import platform
 import re
 import zlib
 from typing import Any
@@ -24,6 +26,19 @@ DEFAULT_HEADERS = {
     "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
 }
+
+# curl_cffi / requests / cloudscraper 均支持；云主机常被 BR 拦，可设住宅代理
+def _env_proxies() -> dict[str, str] | None:
+    out: dict[str, str] = {}
+    if u := (os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or "").strip():
+        out["https"] = u
+        out["http"] = u
+    if u := (os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy") or "").strip():
+        out.setdefault("http", u)
+    if u := (os.environ.get("ALL_PROXY") or os.environ.get("all_proxy") or "").strip():
+        out.setdefault("https", u)
+        out.setdefault("http", u)
+    return out or None
 
 
 def season_to_br_year(season: str) -> int:
@@ -122,23 +137,42 @@ def fetch_html(url: str, timeout: int = 90) -> str:
     """
     抓取页面 HTML。Basketball-Reference 走 Cloudflare，plain requests 常会 403。
     顺序：curl_cffi（模拟 Chrome TLS/指纹）→ cloudscraper → requests。
+    云/VPS（Zeabur、Render 等）出口 IP 常被 Cloudflare 直接拦；可设置环境变量
+    HTTPS_PROXY / HTTP_PROXY（住宅或质量更好的代理）后再点「更新数据」。
     """
     headers = {
         **DEFAULT_HEADERS,
         "Referer": f"{BASE_URL}/",
     }
+    proxies = _env_proxies()
     last_err: Exception | None = None
 
     try:
         from curl_cffi import requests as curl_requests  # type: ignore[import-not-found]
 
-        for imp in ("chrome131", "chrome124", "chrome120", "chrome119"):
+        imps = (
+            "chrome131",
+            "chrome124",
+            "chrome120",
+            "chrome119",
+            "chrome110",
+            "chrome107",
+            "chrome104",
+            "chrome99",
+            "edge101",
+            "safari17_2",
+            "safari17_0",
+            "safari15_5",
+            "firefox133",
+        )
+        for imp in imps:
             try:
                 r = curl_requests.get(
                     url,
                     impersonate=imp,
                     timeout=timeout,
                     headers=headers,
+                    proxies=proxies,
                 )
                 r.raise_for_status()
                 return str(r.text)
@@ -151,10 +185,18 @@ def fetch_html(url: str, timeout: int = 90) -> str:
     try:
         import cloudscraper  # type: ignore
 
-        scraper = cloudscraper.create_scraper(
-            browser={"browser": "chrome", "platform": "darwin", "mobile": False},
+        sysname = platform.system()
+        plat = (
+            "darwin"
+            if sysname == "Darwin"
+            else "windows"
+            if sysname == "Windows"
+            else "linux"
         )
-        r = scraper.get(url, timeout=timeout, headers=headers)
+        scraper = cloudscraper.create_scraper(
+            browser={"browser": "chrome", "platform": plat, "mobile": False},
+        )
+        r = scraper.get(url, timeout=timeout, headers=headers, proxies=proxies)
         r.raise_for_status()
         return r.text
     except ImportError:
@@ -168,6 +210,7 @@ def fetch_html(url: str, timeout: int = 90) -> str:
             timeout=timeout,
             headers=headers,
             allow_redirects=True,
+            proxies=proxies,
         )
         r.raise_for_status()
         return r.text
@@ -175,10 +218,11 @@ def fetch_html(url: str, timeout: int = 90) -> str:
         last_err = e
 
     hint = (
-        "Basketball-Reference 返回 403 多因 Cloudflare 反爬。"
-        "请先: pip install curl-cffi（已在 requirements.txt）；"
-        "仍失败时请用本机住宅网络/关系统代理后再点「更新数据」，"
-        "或在浏览器能打开该页面后在同机执行 nba_player_crawler.py。"
+        "Basketball-Reference 返回 403：多为 Cloudflare 按「数据中心 IP」拦截（Zeabur/Render/AWS 等极常见），"
+        "与是否安装 curl-cffi 无关。"
+        "可行办法任选一：(1) 在 Zeabur 为该服务设置环境变量 HTTPS_PROXY=你的住宅/质量代理；"
+        "(2) 在你家宽带电脑上运行 爬虫/nba_player_crawler.py，把 output 与 nba-pc-analytics 提交仓库后再部署；"
+        "(3) 关系统全局代理后在本机重试。"
     )
     detail = f"{type(last_err).__name__}: {last_err}" if last_err else "unknown"
     raise RuntimeError(f"{hint} 最后错误: {detail}") from last_err
