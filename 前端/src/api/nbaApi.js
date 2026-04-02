@@ -65,3 +65,28 @@ export async function refreshCrawler() {
     headers,
   });
 }
+
+/**
+ * 优先从后端拉取爬虫生成的映射（云托管）；失败则回退到静态 `public/*.json`（仅 dev / 旧部署）。
+ * @param {string} apiPath 如 `/public/nba/i18n/player-zh`
+ * @param {string} staticName 如 `player-zh.json`
+ * @param {string} staticBaseHref `staticFilesBaseHref()`
+ */
+export async function fetchI18nJsonPreferApi(apiPath, staticName, staticBaseHref) {
+  try {
+    const r = await fetch(`${baseUrl()}${apiPath}`);
+    if (r.ok) {
+      const j = await r.json();
+      if (j && typeof j === "object" && !Array.isArray(j)) return j;
+    }
+  } catch (_) {
+    /* 离线或 CORS 等 */
+  }
+  try {
+    const r = await fetch(new URL(staticName, staticBaseHref));
+    if (r.ok) return await r.json();
+  } catch (_) {
+    /* ignore */
+  }
+  return {};
+}

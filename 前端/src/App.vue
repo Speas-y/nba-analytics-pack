@@ -133,8 +133,10 @@ watch(
       <div class="site-data-footer-inner">
         <p class="site-data-footer-text">
           <strong>数据说明：</strong>
-          球员与赛季场均等统计来自本地抓取的 Basketball-Reference 常规赛 per game 数据；球队分区战绩与排名来自
-          NBA 统计接口；本站经本地 Spring Boot 提供 API。使用顶部「更新数据」可重新运行爬虫并刷新页面。
+          球员与赛季场均等统计来自抓取的 Basketball-Reference 常规赛 per game 数据；球队分区战绩与排名来自
+          NBA 统计接口；API 由 Spring Boot 提供。顶部「更新数据」会重跑爬虫：云端为后台任务，完成后请刷新页面；
+          中文名与头像 ID 映射优先从 API <code>/public/nba/i18n/*</code> 读取（随爬虫脚本更新），无则回退打包的
+          <code>public</code> 静态 JSON。
         </p>
       </div>
     </footer>

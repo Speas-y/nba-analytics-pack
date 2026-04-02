@@ -1,5 +1,6 @@
 package com.nbaanalytics.nba;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.nbaanalytics.config.AppProperties;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -85,6 +86,26 @@ public class PublicNbaController {
           HttpStatus.UNAUTHORIZED, "刷新令牌无效或未提供（请配置请求头 X-NBA-Refresh-Token）");
     }
     return crawler.runCrawlerRefresh();
+  }
+
+  /**
+   * 供托管前端（Vercel 等）拉取「爬虫后台生成」的 player-zh；若不存在则 404，由前端回退到本地 public 静态文件。
+   */
+  @GetMapping("/i18n/player-zh")
+  public ResponseEntity<JsonNode> i18nPlayerZh() {
+    return crawler
+        .readI18nJsonFile("player-zh.json")
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+  }
+
+  /** 同 {@link #i18nPlayerZh()}，对应 br-slug → NBA PERSON_ID。 */
+  @GetMapping("/i18n/br-slug-to-nba-person-id")
+  public ResponseEntity<JsonNode> i18nBrSlugToPersonId() {
+    return crawler
+        .readI18nJsonFile("br-slug-to-nba-person-id.json")
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
   }
 
   private static void validateScope(String scope) {

@@ -102,6 +102,24 @@ public class NbaCrawlerDataService {
     return getCrawlerHome().resolve("output");
   }
 
+  /** 与爬虫 scripts 一致：仓库根下的 nba-pc-analytics/（容器内为 /app/nba-pc-analytics） */
+  public Path resolveI18nDir() {
+    return getCrawlerHome().getParent().normalize().resolve("nba-pc-analytics");
+  }
+
+  public Optional<JsonNode> readI18nJsonFile(String filename) {
+    Path p = resolveI18nDir().resolve(filename);
+    if (!Files.isRegularFile(p)) {
+      return Optional.empty();
+    }
+    try {
+      return Optional.of(objectMapper.readTree(Files.newInputStream(p)));
+    } catch (IOException e) {
+      log.warn("readI18nJsonFile {}: {}", p, e.getMessage());
+      return Optional.empty();
+    }
+  }
+
   private String getPythonExecutable(Path crawlerHome) {
     String fromEnv = appProperties.getCrawler().getPython().trim();
     if (!fromEnv.isEmpty()) return fromEnv;
@@ -1104,7 +1122,9 @@ public class NbaCrawlerDataService {
           "async",
           true,
           "message",
-          "爬虫已在后台执行（云托管推荐）。完成后 JSON 会更新；前台静态 player-zh 等映射在容器内仍会尝试后台生成，Vercel 前端仅使用已打包的 public JSON。");
+          "爬虫已在后台执行（云托管推荐）。output 下统计 JSON 更新后 leaderboard 等 API 即反映新数据；"
+              + "player-zh / br-slug 由后台脚本写入 nba-pc-analytics/，前端会从本 API 的 /public/nba/i18n/* 拉取（请刷新页面）；"
+              + "仅当接口 404 时才回退到打包的 public 静态文件。");
     }
     return runCrawlerRefreshSync(home, script, python);
   }

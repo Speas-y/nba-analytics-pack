@@ -58,12 +58,16 @@ export const useNbaStore = defineStore("nba", {
       try {
         const base = staticFilesBaseHref();
         const [zhMap, idMap, seasons] = await Promise.all([
-          fetch(new URL("player-zh.json", base))
-            .then((r) => (r.ok ? r.json() : {}))
-            .catch(() => ({})),
-          fetch(new URL("br-slug-to-nba-person-id.json", base))
-            .then((r) => (r.ok ? r.json() : {}))
-            .catch(() => ({})),
+          api.fetchI18nJsonPreferApi(
+            "/public/nba/i18n/player-zh",
+            "player-zh.json",
+            base,
+          ),
+          api.fetchI18nJsonPreferApi(
+            "/public/nba/i18n/br-slug-to-nba-person-id",
+            "br-slug-to-nba-person-id.json",
+            base,
+          ),
           api.seasons(),
         ]);
         setI18nMaps(

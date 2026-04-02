@@ -12,6 +12,9 @@ RUN apt-get update \
 WORKDIR /app
 COPY --from=build /build/spring-backend/target/*.jar /app/app.jar
 COPY 爬虫 /app/crawler
+# 与爬虫写入路径一致（rebuild_front_assets → nba-pc-analytics/）；供 API /public/nba/i18n/* 与首屏映射
+RUN mkdir -p /app/nba-pc-analytics
+COPY nba-pc-analytics/player-zh.json nba-pc-analytics/br-slug-to-nba-person-id.json /app/nba-pc-analytics/
 RUN cd /app/crawler && python3 -m venv .venv && .venv/bin/pip install --no-cache-dir -r requirements.txt
 ENV NBA_CRAWLER_HOME=/app/crawler
 EXPOSE 8080
