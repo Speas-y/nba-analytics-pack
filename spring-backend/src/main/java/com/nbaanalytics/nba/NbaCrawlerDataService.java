@@ -28,7 +28,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.LinkedHashSet;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -186,7 +185,7 @@ public class NbaCrawlerDataService {
           HttpStatus.SERVICE_UNAVAILABLE,
           "未在 "
               + outDir
-              + " 找到 player_directory_*.json，请先运行爬虫或点击「更新数据」。");
+              + " 找到 player_directory_*.json，请先运行爬虫生成数据。");
     }
     files.sort(
         Comparator.comparing(
@@ -653,7 +652,7 @@ public class NbaCrawlerDataService {
                 + seasonStartYear
                 + "-"
                 + String.format("%02d", (seasonStartYear + 1) % 100)
-                + " 常规赛 per_game 数据文件，请先抓取或更新数据。");
+                + " 常规赛 per_game 数据文件，请先运行爬虫生成数据。");
       }
       JsonNode row = findStatRow(reg, playerId);
       if (row == null) {
@@ -680,7 +679,7 @@ public class NbaCrawlerDataService {
       if (ra == null && pa == null) {
         if (reg == null && post == null) {
           throw new ResponseStatusException(
-              HttpStatus.NOT_FOUND, "未找到该赛季的爬虫统计文件，请先抓取或更新数据。");
+              HttpStatus.NOT_FOUND, "未找到该赛季的爬虫统计文件，请先运行爬虫生成数据。");
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "球员在该赛季统计中无记录");
       }
@@ -1070,106 +1069,5 @@ public class NbaCrawlerDataService {
       }
     }
     return 0L;
-  }
-
-  private void kickoffOptionalFrontAssetRebuild() {
-    try {
-      Path home = getCrawlerHome();
-      Path script = home.resolve("scripts/rebuild_front_assets.py");
-      if (!Files.isRegularFile(script)) {
-        log.warn("未找到 {}，跳过自动更新 player-zh / br-slug", script);
-        return;
-      }
-      String python = getPythonExecutable(home);
-      new ProcessBuilder(python, script.toString())
-          .directory(home.toFile())
-          .redirectOutput(ProcessBuilder.Redirect.DISCARD)
-          .redirectError(ProcessBuilder.Redirect.DISCARD)
-          .start();
-      log.info("已在后台启动 rebuild_front_assets.py");
-    } catch (Exception e) {
-      log.warn("kickoffOptionalFrontAssetRebuild: {}", e.getMessage());
-    }
-  }
-
-  public Map<String, Object> runCrawlerRefresh() {
-    Path home = getCrawlerHome();
-    Path script = home.resolve("nba_player_crawler.py");
-    if (!Files.isRegularFile(script)) {
-      throw new ResponseStatusException(
-          HttpStatus.SERVICE_UNAVAILABLE,
-          "未找到爬虫脚本：" + script + "，请检查 NBA_CRAWLER_HOME");
-    }
-    String python = getPythonExecutable(home);
-    if (appProperties.getCrawler().isAsync()) {
-      Thread t =
-          new Thread(
-              () -> {
-                try {
-                  runCrawlerRefreshSync(home, script, python);
-                } catch (ResponseStatusException e) {
-                  log.error("后台爬虫：{}", e.getReason());
-                } catch (Exception e) {
-                  log.error("后台爬虫异常", e);
-                }
-              },
-              "nba-crawler-async");
-      t.setDaemon(true);
-      t.start();
-      return Map.of(
-          "ok",
-          true,
-          "async",
-          true,
-          "message",
-          "爬虫已在后台执行（云托管推荐）。output 下统计 JSON 更新后 leaderboard 等 API 即反映新数据；"
-              + "player-zh / br-slug 由后台脚本写入 nba-pc-analytics/，前端会从本 API 的 /public/nba/i18n/* 拉取（请刷新页面）；"
-              + "仅当接口 404 时才回退到打包的 public 静态文件。");
-    }
-    return runCrawlerRefreshSync(home, script, python);
-  }
-
-  private Map<String, Object> runCrawlerRefreshSync(Path home, Path script, String python) {
-    try {
-      ProcessBuilder pb =
-          new ProcessBuilder(python, script.toString()).directory(home.toFile());
-      pb.redirectErrorStream(true);
-      Process p = pb.start();
-      String stdout = new String(p.getInputStream().readAllBytes());
-      boolean finished = p.waitFor(10, TimeUnit.MINUTES);
-      if (!finished) {
-        p.destroyForcibly();
-        throw new ResponseStatusException(
-            HttpStatus.SERVICE_UNAVAILABLE, "爬虫执行超时（10 分钟）");
-      }
-      int code = p.exitValue();
-      if (code != 0) {
-        String preview =
-            stdout.length() > 1200 ? "…" + stdout.substring(stdout.length() - 1200) : stdout;
-        throw new ResponseStatusException(
-            HttpStatus.SERVICE_UNAVAILABLE, "爬虫退出码 " + code + (preview.isEmpty() ? "" : " | " + preview));
-      }
-      clearJsonCache();
-      kickoffOptionalFrontAssetRebuild();
-      return Map.of(
-          "ok",
-          true,
-          "message",
-          "爬虫执行完成，已刷新本地 JSON 缓存。球员中文名与头像 slug 映射正在后台自动生成（约 2～6 分钟），完成后刷新本站页面即可，无需再开终端。详细日志见 前端/.i18n-rebuild.log。",
-          "stdout",
-          stdout,
-          "stderr",
-          "");
-    } catch (ResponseStatusException e) {
-      throw e;
-    } catch (Exception e) {
-      String msg = e.getMessage() != null ? e.getMessage() : String.valueOf(e);
-      log.error("Crawler failed: {}", msg);
-      throw new ResponseStatusException(
-          HttpStatus.SERVICE_UNAVAILABLE,
-          "执行爬虫失败："
-              + msg
-              + "。若含 403：Basketball-Reference 的 Cloudflare 可能拦截，请在爬虫目录执行 pip install -r requirements.txt（含 curl-cffi），关闭系统代理后重试，或换本机住宅网络。");
-    }
   }
 }

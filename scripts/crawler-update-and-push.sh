@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 本机：跑爬虫 → 可选生成 i18n 映射 → git commit + push
+# 运营侧本机：跑爬虫 → 可选生成 i18n 映射 → git commit + push（应用内已无「在线更新数据」入口）
 # 用法：在仓库根目录执行  ./更新   或  bash scripts/crawler-update-and-push.sh
 # 追加参数会传给 nba_player_crawler.py，例如：./更新 --season 2025-26
 set -euo pipefail

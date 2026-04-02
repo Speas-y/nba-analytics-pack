@@ -266,26 +266,6 @@ a:hover {
   box-shadow: 0 6px 24px rgba(255, 45, 30, 0.45);
 }
 
-.header-right .btn-refresh-header {
-  font: inherit;
-  font-weight: 600;
-  padding: 0.45rem 1rem;
-  border-radius: 999px;
-  border: 1px solid var(--border-glow);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--accent-ember);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.header-right .btn-refresh-header:hover:not(:disabled) {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-.header-right .btn-refresh-header:disabled {
-  opacity: 0.85;
-  cursor: wait;
-}
-
 /* Main */
 #app {
   max-width: 1280px;
@@ -611,19 +591,6 @@ a:hover {
   border-color: var(--accent-gold);
   color: var(--accent-gold);
   background: rgba(240, 180, 41, 0.08);
-}
-
-.hero-actions .btn-refresh {
-  border-color: rgba(255, 107, 0, 0.45);
-  color: var(--accent);
-}
-.hero-actions .btn-refresh:hover:not(:disabled) {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-.hero-actions .btn-refresh:disabled {
-  opacity: 0.85;
-  cursor: wait;
 }
 
 .hero-stats {

@@ -33,9 +33,6 @@ app:
     frontend-origin: ${FRONTEND_ORIGIN:http://localhost:5173}
     dashboard-origins: ${DASHBOARD_ORIGINS:http://127.0.0.1:8766,http://localhost:8766}
   crawler:
-    refresh-token: ${CRAWLER_REFRESH_TOKEN:}
     home: ${NBA_CRAWLER_HOME:}
     output-dir: ${NBA_CRAWLER_OUTPUT_DIR:}
     python: ${NBA_CRAWLER_PYTHON:}
-    # 云托管（如 Render）HTTP 超时短：设为 true 时 POST /data/refresh 立即返回，爬虫在后台跑完。
-    async: ${CRAWLER_ASYNC:false}

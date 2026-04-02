@@ -1,7 +1,6 @@
 package com.nbaanalytics.nba;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.nbaanalytics.config.AppProperties;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import java.util.List;
@@ -12,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,11 +22,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class PublicNbaController {
 
   private final NbaCrawlerDataService crawler;
-  private final AppProperties appProperties;
 
-  public PublicNbaController(NbaCrawlerDataService crawler, AppProperties appProperties) {
+  public PublicNbaController(NbaCrawlerDataService crawler) {
     this.crawler = crawler;
-    this.appProperties = appProperties;
   }
 
   @GetMapping("/seasons")
@@ -77,19 +72,8 @@ public class PublicNbaController {
     return crawler.getPlayerDetail(id, season, scope);
   }
 
-  @PostMapping("/data/refresh")
-  public Map<String, Object> refresh(
-      @RequestHeader(value = "X-NBA-Refresh-Token", required = false) String token) {
-    String required = appProperties.getCrawler().getRefreshToken().trim();
-    if (!required.isEmpty() && !required.equals(token != null ? token.trim() : "")) {
-      throw new ResponseStatusException(
-          HttpStatus.UNAUTHORIZED, "刷新令牌无效或未提供（请配置请求头 X-NBA-Refresh-Token）");
-    }
-    return crawler.runCrawlerRefresh();
-  }
-
   /**
-   * 供托管前端（Vercel 等）拉取「爬虫后台生成」的 player-zh；若不存在则 404，由前端回退到本地 public 静态文件。
+   * 供托管前端拉取镜像内 nba-pc-analytics 的 player-zh；若不存在则 404，由前端回退到本地 public 静态文件。
    */
   @GetMapping("/i18n/player-zh")
   public ResponseEntity<JsonNode> i18nPlayerZh() {

@@ -96,19 +96,9 @@ public class AppProperties {
   }
 
   public static class Crawler {
-    private String refreshToken = "";
     private String home = "";
     private String outputDir = "";
     private String python = "";
-    private boolean async = false;
-
-    public String getRefreshToken() {
-      return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-      this.refreshToken = refreshToken;
-    }
 
     public String getHome() {
       return home;
@@ -132,14 +122,6 @@ public class AppProperties {
 
     public void setPython(String python) {
       this.python = python;
-    }
-
-    public boolean isAsync() {
-      return async;
-    }
-
-    public void setAsync(boolean async) {
-      this.async = async;
     }
   }
 }

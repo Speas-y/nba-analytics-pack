@@ -1,9 +1,7 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
-import * as api from "./api/nbaApi";
+import { onMounted, watch } from "vue";
 import { useNbaStore } from "./stores/nba";
 const store = useNbaStore();
-const crawlerBusy = ref(false);
 
 function onSeasonChange(e) {
   const y = Number(e.target.value);
@@ -18,28 +16,6 @@ async function share() {
     window.alert("链接已复制到剪贴板");
   } catch {
     window.prompt("复制链接：", u);
-  }
-}
-
-/** 与旧版一致：触发后端执行本机爬虫，成功后重新拉取榜单 */
-async function runCrawlerRefresh() {
-  if (store.status !== "ready" || crawlerBusy.value) return;
-  crawlerBusy.value = true;
-  try {
-    const res = await api.refreshCrawler();
-    await store.loadBundle();
-    const msg = res?.message || "爬虫执行完成";
-    if (store.status === "error") {
-      window.alert(`刷新后加载数据失败：${store.error || "未知错误"}\n\n${msg}`);
-    } else {
-      const errPart = res?.stderr ? String(res.stderr).trim().slice(0, 500) : "";
-      const tail = errPart ? `\n\nstderr（节选）：\n${errPart}` : "";
-      window.alert(`${msg}${tail}`);
-    }
-  } catch (err) {
-    window.alert((err && err.message) || String(err));
-  } finally {
-    crawlerBusy.value = false;
   }
 }
 
@@ -99,15 +75,6 @@ watch(
               </option>
             </select>
           </div>
-          <button
-            v-if="store.status === 'ready'"
-            type="button"
-            class="btn-refresh-header"
-            :disabled="crawlerBusy"
-            @click="runCrawlerRefresh"
-          >
-            {{ crawlerBusy ? "爬虫运行中…" : "更新数据" }}
-          </button>
           <button type="button" class="btn-share" @click="share">分享</button>
         </div>
       </div>
@@ -134,9 +101,8 @@ watch(
         <p class="site-data-footer-text">
           <strong>数据说明：</strong>
           球员与赛季场均等统计来自抓取的 Basketball-Reference 常规赛 per game 数据；球队分区战绩与排名来自
-          NBA 统计接口；API 由 Spring Boot 提供。顶部「更新数据」会重跑爬虫：云端为后台任务，完成后请刷新页面；
-          中文名与头像 ID 映射优先从 API <code>/public/nba/i18n/*</code> 读取（随爬虫脚本更新），无则回退打包的
-          <code>public</code> 静态 JSON。
+          NBA 统计接口；API 由 Spring Boot 提供。数据由运营侧更新后部署；中文名与头像 ID 映射优先从 API
+          <code>/public/nba/i18n/*</code> 读取，无则回退打包的 <code>public</code> 静态 JSON。
         </p>
       </div>
     </footer>

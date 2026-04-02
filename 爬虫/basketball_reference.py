@@ -138,7 +138,7 @@ def fetch_html(url: str, timeout: int = 90) -> str:
     抓取页面 HTML。Basketball-Reference 走 Cloudflare，plain requests 常会 403。
     顺序：curl_cffi（模拟 Chrome TLS/指纹）→ cloudscraper → requests。
     云/VPS（Zeabur、Render 等）出口 IP 常被 Cloudflare 直接拦；可设置环境变量
-    HTTPS_PROXY / HTTP_PROXY（住宅或质量更好的代理）后再点「更新数据」。
+    HTTPS_PROXY / HTTP_PROXY（住宅或质量更好的代理）后再运行爬虫。
     """
     headers = {
         **DEFAULT_HEADERS,

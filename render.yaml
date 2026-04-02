@@ -17,9 +17,5 @@ services:
         value: h2
       - key: FRONTEND_ORIGIN
         value: https://nbasjfx.vercel.app
-      - key: CRAWLER_ASYNC
-        value: "true"
       - key: JWT_ACCESS_SECRET
-        generateValue: true
-      - key: CRAWLER_REFRESH_TOKEN
         generateValue: true

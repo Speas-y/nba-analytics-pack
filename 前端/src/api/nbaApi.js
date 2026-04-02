@@ -56,16 +56,6 @@ export async function playerDetail(playerId, seasonStartYear) {
   );
 }
 
-export async function refreshCrawler() {
-  const headers = {};
-  const t = String(import.meta.env.VITE_REFRESH_TOKEN || "").trim();
-  if (t) headers["X-NBA-Refresh-Token"] = t;
-  return nbaFetch("/public/nba/data/refresh", {
-    method: "POST",
-    headers,
-  });
-}
-
 /**
  * 优先从后端拉取爬虫生成的映射（云托管）；失败则回退到静态 `public/*.json`（仅 dev / 旧部署）。
  * @param {string} apiPath 如 `/public/nba/i18n/player-zh`
