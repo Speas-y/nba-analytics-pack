@@ -9,7 +9,8 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      # update 在 Hibernate 6 会生成 H2 不支持的「ALTER TABLE IF EXISTS … ADD CONSTRAINT」；内存库用每次启动重建即可
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
