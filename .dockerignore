@@ -2,7 +2,8 @@
 **/.DS_Store
 前端
 前端/node_modules
-nba-pc-analytics
+# 需保留 nba-pc-analytics/*.json 供 Dockerfile COPY；仅排除日志
+nba-pc-analytics/.i18n-rebuild.log
 spring-backend/target
 spring-backend/.idea
 爬虫/.venv
