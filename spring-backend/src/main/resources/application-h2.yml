@@ -13,6 +13,6 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        # 方言由 JDBC URL 自动识别，勿写 dialect，否则 Hibernate 会打 HHH90000025 弃用 WARN
         # H2 保留字 User 等：未加引号的表名会触发 Syntax error expected "identifier"
         globally_quoted_identifiers: true
