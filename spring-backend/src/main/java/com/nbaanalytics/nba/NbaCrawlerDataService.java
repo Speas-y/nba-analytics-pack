@@ -53,8 +53,14 @@ public class NbaCrawlerDataService {
   private final AppProperties appProperties;
   private final ObjectMapper objectMapper;
   private final Map<String, FileCache> jsonCache = new ConcurrentHashMap<>();
+  /** 球队近 10 场在线结果缓存，减轻对 stats.nba.com 的请求频率（仅缓存非空结果）。 */
+  private final Map<String, RecentGamesLiveCache> recentGamesLiveCache = new ConcurrentHashMap<>();
+
+  private static final long RECENT_GAMES_LIVE_CACHE_TTL_MS = 5 * 60_000L;
 
   private record FileCache(long mtimeMs, JsonNode root) {}
+
+  private record RecentGamesLiveCache(long expiresAtMs, List<Map<String, Object>> rows) {}
 
   public NbaCrawlerDataService(AppProperties appProperties, ObjectMapper objectMapper) {
     this.appProperties = appProperties;
@@ -63,6 +69,7 @@ public class NbaCrawlerDataService {
 
   public void clearJsonCache() {
     jsonCache.clear();
+    recentGamesLiveCache.clear();
   }
 
   private Path resolveDefaultCrawlerHome() {
@@ -767,14 +774,32 @@ public class NbaCrawlerDataService {
   }
 
   /**
-   * 球队近常规赛场次（默认最多 10 场，新→旧）。优先读爬虫目录 {@code team_recent_games_{tag}.json}；若无则尝试
-   * stats.nba.com（部份网络环境可能被拦截）。
+   * 球队近常规赛场次（默认最多 10 场，新→旧）。
+   *
+   * <p>优先请求 stats.nba.com，避免镜像内旧的 {@code team_recent_games_*.json} 长期覆盖已更新的分区战绩。
+   * 若线上无法访问 NBA Stats，再回退到爬虫目录中的 JSON。
    */
   public List<Map<String, Object>> getTeamRecentGames(String abbrUpper, int seasonStartYear) {
     String abbr = abbrUpper.trim().toUpperCase(Locale.ROOT);
     if (abbr.isEmpty()) {
       return List.of();
     }
+    String liveKey = abbr + ":" + seasonStartYear;
+    long now = System.currentTimeMillis();
+    RecentGamesLiveCache cached = recentGamesLiveCache.get(liveKey);
+    if (cached != null && cached.expiresAtMs > now && !cached.rows().isEmpty()) {
+      return cached.rows();
+    }
+    List<Map<String, Object>> live = fetchTeamRecentGamesLive(abbr, seasonStartYear);
+    if (!live.isEmpty()) {
+      recentGamesLiveCache.put(
+          liveKey, new RecentGamesLiveCache(now + RECENT_GAMES_LIVE_CACHE_TTL_MS, live));
+      return live;
+    }
+    return loadTeamRecentGamesFromFiles(abbr, seasonStartYear);
+  }
+
+  private List<Map<String, Object>> loadTeamRecentGamesFromFiles(String abbr, int seasonStartYear) {
     for (Path p : candidateTeamRecentGamesPaths(seasonStartYear)) {
       if (!Files.isRegularFile(p)) {
         continue;
@@ -792,7 +817,7 @@ public class NbaCrawlerDataService {
         log.warn("读取 {} 失败：{}", p, e.getMessage());
       }
     }
-    return fetchTeamRecentGamesLive(abbr, seasonStartYear);
+    return List.of();
   }
 
   private List<Path> candidateTeamRecentGamesPaths(int seasonStartYear) {

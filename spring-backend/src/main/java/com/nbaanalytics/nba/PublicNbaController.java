@@ -53,7 +53,7 @@ public class PublicNbaController {
         .body(b.teams());
   }
 
-  /** 常规赛近 10 场左右比分（优先本地 team_recent_games_*.json，否则尝试 stats.nba.com）。 */
+  /** 常规赛近 10 场左右比分（优先 stats.nba.com；失败时回退本地 team_recent_games_*.json）。 */
   @GetMapping("/teams/{abbr}/recent-games")
   public List<Map<String, Object>> teamRecentGames(
       @PathVariable String abbr,

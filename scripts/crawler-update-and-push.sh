@@ -27,6 +27,11 @@ echo "运行爬虫（Basketball-Reference）…"
 # 必须在 爬虫/output 写入（与 Docker COPY、git add 路径一致；勿依赖进程 cwd 默认的 ./output）
 "$PY" "$CRAWLER/nba_player_crawler.py" --out-dir "$CRAWLER/output" "$@"
 
+echo "拉取各队近 10 场常规赛（team_recent_games_*.json，与战绩同步）…"
+if ! "$PY" "$CRAWLER/fetch_team_recent_games.py"; then
+  echo "警告：近 10 场生成失败，将依赖后端在线拉取或沿用旧 JSON。" >&2
+fi
+
 echo "尝试生成 nba-pc-analytics 映射（失败不阻断提交 output）…"
 "$PY" "$CRAWLER/scripts/rebuild_front_assets.py" || true
 

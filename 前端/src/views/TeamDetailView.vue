@@ -81,7 +81,7 @@ async function loadRecentGames() {
     recentGames.value = Array.isArray(rows) ? rows : [];
     if (!recentGames.value.length) {
       recentGamesHint.value =
-        "暂无比赛记录。可在 爬虫 目录执行 python fetch_team_recent_games.py 生成本地 team_recent_games_*.json，或确认服务器可访问 stats.nba.com。";
+        "暂无比赛记录。仓库根目录执行 ./更新 会刷新 team_recent_games；或于 爬虫 目录运行 python fetch_team_recent_games.py。部署环境需能访问 stats.nba.com。";
     }
   } catch (e) {
     recentGames.value = [];
