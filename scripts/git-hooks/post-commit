@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# 安装：chmod +x scripts/git-hooks/post-commit && ln -sf ../../scripts/git-hooks/post-commit .git/hooks/post-commit
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+python3 "$ROOT/scripts/code_change_log.py" record

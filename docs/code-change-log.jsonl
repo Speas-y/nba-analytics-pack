@@ -1,0 +1,21 @@
+{"ts": "2026-04-01T17:14:29Z", "subject": "chore: initial monorepo (Vue, Spring Boot, crawler, Render)", "hash": "78ed12c2f7c3"}
+{"ts": "2026-04-01T17:37:19Z", "subject": "feat(render): manual Web Service support via DATABASE_URL and RenderDatabaseConfig", "hash": "b50208acdf9d"}
+{"ts": "2026-04-01T17:42:00Z", "subject": "feat: H2 profile for Render without Postgres (no credit card)", "hash": "bf0f6f32c2a2"}
+{"ts": "2026-04-02T06:52:23Z", "subject": "fix(h2): use create-drop to avoid Hibernate ALTER TABLE IF EXISTS on H2", "hash": "a55833d56801"}
+{"ts": "2026-04-02T06:58:16Z", "subject": "fix(h2): quote identifiers so reserved table name User works on H2", "hash": "9920ec4f3ca9"}
+{"ts": "2026-04-02T07:01:49Z", "subject": "chore(h2): drop explicit H2Dialect to silence Hibernate HHH90000025", "hash": "78b11435fdcd"}
+{"ts": "2026-04-02T07:09:15Z", "subject": "fix(cors): use origin patterns for Vercel + normalize FRONTEND_ORIGIN scheme", "hash": "0d82c15549ea"}
+{"ts": "2026-04-02T07:19:35Z", "subject": "fix: serve i18n JSON from API so cloud crawler updates reach Vercel", "hash": "4ba90ea7fe99"}
+{"ts": "2026-04-02T07:25:53Z", "subject": "fix(docker): stop ignoring nba-pc-analytics so i18n JSON COPY works", "hash": "2ac280932b7e"}
+{"ts": "2026-04-02T07:40:22Z", "subject": "fix(crawler): proxy env + more curl_cffi impersonate; clarify 403 on cloud IPs", "hash": "63b2285894cc"}
+{"ts": "2026-04-02T07:48:29Z", "subject": "feat: add ./更新 script to run crawler and push JSON to GitHub", "hash": "7e1fb169e0f1"}
+{"ts": "2026-04-02T07:51:55Z", "subject": "chore(cursor): rule to run ./更新 when user says 更新", "hash": "b6712981bf19"}
+{"ts": "2026-04-02T07:56:25Z", "subject": "refactor: remove in-app and API crawler refresh; data updates are ops-only", "hash": "b100cd1b5be0"}
+{"ts": "2026-04-02T07:58:32Z", "subject": "chore(data): refresh standings; fix ./更新 to write 爬虫/output", "hash": "071ab4d3bc08"}
+{"ts": "2026-04-07T17:53:58Z", "subject": "chore(data): crawler update 2026-04-07T17:53Z", "hash": "d5b8614f44d9"}
+{"ts": "2026-04-07T17:54:37Z", "subject": "chore(cursor): document frontend sync via rsync (subtree breaks on 前端 path)", "hash": "88992a9b4d6b"}
+{"ts": "2026-04-07T17:58:30Z", "subject": "docs: add README.md for monorepo and frontend mirror", "hash": "e384fd3d5f6e"}
+{"ts": "2026-04-07T18:08:34Z", "subject": "chore(data): crawler update 2026-04-07T18:08Z", "hash": "b9ae73dd469d"}
+{"ts": "2026-04-07T18:08:48Z", "subject": "fix: refresh team last-10 games with crawler; prefer live NBA Stats with cache", "hash": "7b691571bd10"}
+{"ts": "2026-04-07T18:19:02Z", "subject": "perf(nba): serve recent games from local JSON first; shorten NBA Stats timeout", "hash": "70b5d8d0b8a3"}
+{"ts": "2026-04-07T18:25:02Z", "subject": "feat: code change log (JSONL, 30-day retention, optional post-commit hook)", "hash": "1aed123d668c"}

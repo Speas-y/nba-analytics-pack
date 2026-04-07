@@ -1,0 +1,24 @@
+代码变更日志（约 30 天滚动）
+============================
+
+文件：docs/code-change-log.jsonl
+  每行一条 JSON：ts（UTC ISO8601）、subject（说明）、hash（短提交号）。
+
+保留策略
+--------
+  每次追加记录后会自动删除早于 30 天（UTC）的条目。
+  也可手动：python3 scripts/code_change_log.py prune
+
+常用命令
+--------
+  手动追加当前 HEAD（提交后执行）：
+    ./scripts/record-change.sh
+  自定义说明：
+    python3 scripts/code_change_log.py record -m "说明文字"
+
+  用最近 30 天内的 git 历史重写日志（初始化或对齐）：
+    python3 scripts/code_change_log.py seed
+
+可选：每次 git commit 自动记录（在本仓库根目录执行）
+    chmod +x scripts/git-hooks/post-commit
+    ln -sf ../../scripts/git-hooks/post-commit .git/hooks/post-commit
