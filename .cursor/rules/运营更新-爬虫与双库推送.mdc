@@ -1,0 +1,38 @@
+---
+description: 用户说「更新」时：跑爬虫、载入最新数据、推送 nba-analytics-pack 与 nba-analytics-frontend，并更新 README
+alwaysApply: true
+---
+
+# 运营「更新」工作流（爬虫 + 双 GitHub 库 + README）
+
+## 何时执行
+
+当用户消息为 **「更新」** 或明确表达 **同步最新爬虫数据、推 GitHub、双库上传** 等同义意图时，按下列顺序执行。**非**此类请求时不要自动跑爬虫或批量推送。
+
+## 1. 爬虫与主仓库（nba-analytics-pack）
+
+- 在仓库根目录执行：`./更新`（或 `bash scripts/crawler-update-and-push.sh`）。
+- 脚本会：创建/使用 `爬虫/.venv`、运行 `nba_player_crawler.py` 写入 `爬虫/output`、尝试 `rebuild_front_assets`、将数据 JSON 提交并 **`git push`** 到当前 `origin`（即 **nba-analytics-pack**）。
+- 若提示「数据文件相对仓库无变化」，说明本地数据已是最新，仍应继续检查前端与 README 是否需要提交。
+
+## 2. 前端独立仓库（nba-analytics-frontend）
+
+- 本仓库内前端代码在 **`前端/`**，需同步到 GitHub **`nba-analytics-frontend`**（与 monorepo 并列的独立库）。
+- **勿用** `git subtree push --prefix=前端`：路径含中文时 git subtree 会断言失败；改用下面「临时克隆 + rsync」。
+- **推荐流程**（将 `Speas-y`、`<monorepo 根路径>` 换成实际值）：
+  1. `TMPDIR=$(mktemp -d)`，`git clone https://github.com/Speas-y/nba-analytics-frontend.git "$TMPDIR/fe"`
+  2. `rsync -a --delete --exclude '.git' --exclude node_modules --exclude dist --exclude .env --exclude .env.local --exclude .DS_Store "<monorepo>/前端/" "$TMPDIR/fe/"`  
+     **必须**带 `--exclude '.git'`，否则 `--delete` 会删掉克隆目录里的 `.git`。
+  3. `cd "$TMPDIR/fe"` → 若有变更则 `git add -A && git commit -m "..." && git push`
+- 若 **`前端/` 在本仓库有未提交改动**，先在主库 `git add 前端/ && git commit && git push origin`，再按上面对前端库推送。
+
+## 3. README 与变更说明
+
+- 根目录维护 **`README-使用说明.txt`**（若存在 **`README.md`** 一并更新）。
+- 若本次有**代码修改、功能更新或新增功能**，在对应 README 中简要写明：改了什么、用户可见行为、如何运行/部署（与现有文档风格一致）。
+
+## 4. 小结检查
+
+- [ ] 主库 **nba-analytics-pack**：数据与必要提交已推送。
+- [ ] 前端库 **nba-analytics-frontend**：`前端/` 已同步推送。
+- [ ] README 已反映本次变更（如有）。
