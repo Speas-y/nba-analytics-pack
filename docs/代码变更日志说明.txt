@@ -19,6 +19,5 @@
   用最近 30 天内的 git 历史重写日志（初始化或对齐）：
     python3 scripts/code_change_log.py seed
 
-可选：每次 git commit 自动记录（在本仓库根目录执行）
-    chmod +x scripts/git-hooks/post-commit
-    ln -sf ../../scripts/git-hooks/post-commit .git/hooks/post-commit
+可选：每次 git commit 自动记录
+  安装命令已写在 .cursor/rules/代码变更日志.mdc（复制其中两条即可）。

@@ -1,0 +1,20 @@
+---
+description: 本仓库代码变更日志（JSONL、30 天）与 git post-commit 一次性安装命令
+alwaysApply: true
+---
+
+# 代码变更日志
+
+- **文件**：`docs/code-change-log.jsonl`（每行 JSON：`ts`、`subject`、`hash`）。**保留约 30 天**（UTC），追加时自动裁剪，详见 `scripts/code_change_log.py`。
+- **未装 hook 时**：提交后可在仓库根执行 `./scripts/record-change.sh`，或 `python3 scripts/code_change_log.py seed` 与 git 历史对齐。
+
+## 一次性安装：每次 `git commit` 后自动写入日志
+
+在**本仓库根目录**执行下面两条（只需做一次）：
+
+```bash
+chmod +x scripts/git-hooks/post-commit
+ln -sf ../../scripts/git-hooks/post-commit .git/hooks/post-commit
+```
+
+之后每次本地 `git commit` 结束会自动执行 `python3 scripts/code_change_log.py record`（以当前 HEAD 为准）。若某次提交**不应**记日志，可用 `git commit --no-verify` 跳过 hook。
