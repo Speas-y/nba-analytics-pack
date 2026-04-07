@@ -18,6 +18,7 @@
 {"ts": "2026-04-07T18:08:34Z", "subject": "chore(data): crawler update 2026-04-07T18:08Z", "hash": "b9ae73dd469d"}
 {"ts": "2026-04-07T18:08:48Z", "subject": "fix: refresh team last-10 games with crawler; prefer live NBA Stats with cache", "hash": "7b691571bd10"}
 {"ts": "2026-04-07T18:19:02Z", "subject": "perf(nba): serve recent games from local JSON first; shorten NBA Stats timeout", "hash": "70b5d8d0b8a3"}
-{"ts": "2026-04-07T18:25:02Z", "subject": "feat: code change log (JSONL, 30-day retention, optional post-commit hook)", "hash": "1aed123d668c"}
-{"ts": "2026-04-07T18:26:35Z", "subject": "docs(cursor): add code change log rule with post-commit install commands", "hash": "1d1d62833095"}
-{"ts": "2026-04-07T18:35:33Z", "subject": "feat(docs): human-readable change log (txt) with 30d prune and scripts", "hash": "9e2bf354af99"}
+{"ts": "2026-04-07T18:25:02Z", "subject": "feat: code change log (JSONL, 30-day retention, optional post-commit hook)", "hash": "1576163839e7"}
+{"ts": "2026-04-07T18:26:35Z", "subject": "docs(cursor): add code change log rule with post-commit install commands", "hash": "f0d4fa2fe6be"}
+{"ts": "2026-04-07T18:35:33Z", "subject": "feat(docs): human-readable change log (txt) with 30d prune and scripts", "hash": "48c24744759f"}
+{"ts": "2026-04-07T18:38:46Z", "subject": "chore(data): crawler update 2026-04-07T18:38Z", "hash": "ac826babfc68"}
