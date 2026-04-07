@@ -289,6 +289,13 @@
   ],
   "DEN": [
     {
+      "gameDate": "2026-04-06",
+      "matchup": "DEN vs. POR",
+      "wl": "W",
+      "pts": 137,
+      "oppPts": 132
+    },
+    {
       "gameDate": "2026-04-04",
       "matchup": "DEN vs. SAS",
       "wl": "W",
@@ -350,13 +357,6 @@
       "wl": "L",
       "pts": 118,
       "oppPts": 125
-    },
-    {
-      "gameDate": "2026-03-17",
-      "matchup": "DEN vs. PHI",
-      "wl": "W",
-      "pts": 124,
-      "oppPts": 96
     }
   ],
   "NYK": [
