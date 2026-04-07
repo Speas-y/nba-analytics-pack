@@ -1,20 +1,42 @@
 ---
-description: 本仓库代码变更日志（JSONL、30 天）与 git post-commit 一次性安装命令
+description: 代码变更：可读 txt（摘要/问题/处理）与 jsonl、post-commit、追加命令
 alwaysApply: true
 ---
 
 # 代码变更日志
 
-- **文件**：`docs/code-change-log.jsonl`（每行 JSON：`ts`、`subject`、`hash`）。**保留约 30 天**（UTC），追加时自动裁剪，详见 `scripts/code_change_log.py`。
-- **未装 hook 时**：提交后可在仓库根执行 `./scripts/record-change.sh`，或 `python3 scripts/code_change_log.py seed` 与 git 历史对齐。
+## 可读版（你要的「某天：改了什么 bug、怎么修的」）
 
-## 一次性安装：每次 `git commit` 后自动写入日志
+- **文件**：`docs/代码变更记录.txt`  
+  格式：**日期（北京时间）** + **【摘要】** + **【问题说明】** + **【处理办法】**，略详细、可写多行。  
+  **保留约 30 天**（北京时间），每次 `add` 后会自动裁剪过期块。
 
-在**本仓库根目录**执行下面两条（只需做一次）：
+- **追加一条**（在仓库根目录）：
+
+```bash
+./scripts/add-human-change-record.sh -t "一行摘要" \
+  -p "问题说明：现象、原因…" \
+  -s "处理办法：改了哪些文件/逻辑…"
+```
+
+内容长时用 `--problem-file path.txt` / `--solution-file path.txt` 代替 `-p` / `-s`。补记历史可加 `--date 2026-04-01`。
+
+---
+
+## 机器可读短摘要（git / hook）
+
+- **文件**：`docs/code-change-log.jsonl`（`ts` UTC、`subject`、`hash`）。详见 `scripts/code_change_log.py`。
+- **未装 hook 时**：提交后可 `./scripts/record-change.sh`，或 `python3 scripts/code_change_log.py seed`。
+
+## 一次性安装：每次 `git commit` 后自动写入 jsonl
+
+在**本仓库根目录**执行（只需一次）：
 
 ```bash
 chmod +x scripts/git-hooks/post-commit
 ln -sf ../../scripts/git-hooks/post-commit .git/hooks/post-commit
 ```
 
-之后每次本地 `git commit` 结束会自动执行 `python3 scripts/code_change_log.py record`（以当前 HEAD 为准）。若某次提交**不应**记日志，可用 `git commit --no-verify` 跳过 hook。
+不需要为可读版 txt 装 hook；**重要发布请在 commit 后另跑一次 `add-human-change-record.sh`** 写清楚 bug 与修复。
+
+若某次提交不应记 jsonl：`git commit --no-verify`。

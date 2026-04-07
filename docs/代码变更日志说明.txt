@@ -1,6 +1,25 @@
 代码变更日志（约 30 天滚动）
 ============================
 
+一、可读版（推荐写「具体 bug + 怎么处理」）
+--------------------------------------------
+文件：docs/代码变更记录.txt
+
+  每条含：【摘要】【问题说明】【处理办法】，日期为北京时间；与 jsonl 同步保留约 30 天。
+
+  追加一条（参数较长时可用 --problem-file / --solution-file 指向文本文件）：
+
+    ./scripts/add-human-change-record.sh -t "一行摘要" \
+      -p "问题说明多行…" \
+      -s "处理办法多行…"
+
+    或：python3 scripts/human_change_log.py add -t "…" -p "…" -s "…"
+
+  仅裁剪：python3 scripts/human_change_log.py prune
+
+
+二、机器可读短摘要（与 git / hook 联动）
+----------------------------------------
 文件：docs/code-change-log.jsonl
   每行一条 JSON：ts（UTC ISO8601）、subject（说明）、hash（短提交号）。
 
