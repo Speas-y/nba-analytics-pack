@@ -53,10 +53,12 @@ public class NbaCrawlerDataService {
   private final AppProperties appProperties;
   private final ObjectMapper objectMapper;
   private final Map<String, FileCache> jsonCache = new ConcurrentHashMap<>();
-  /** 球队近 10 场在线结果缓存，减轻对 stats.nba.com 的请求频率（仅缓存非空结果）。 */
+  /** 本地无该队近 10 场时，在线结果的短期缓存（仅缓存非空结果）。 */
   private final Map<String, RecentGamesLiveCache> recentGamesLiveCache = new ConcurrentHashMap<>();
 
   private static final long RECENT_GAMES_LIVE_CACHE_TTL_MS = 5 * 60_000L;
+  /** 仅在缺少 team_recent_games JSON 时请求 NBA Stats；超时过大会拖慢接口，不宜与爬虫脚本同级。 */
+  private static final Duration NBA_STATS_RECENT_GAMES_TIMEOUT = Duration.ofSeconds(8);
 
   private record FileCache(long mtimeMs, JsonNode root) {}
 
@@ -776,13 +778,17 @@ public class NbaCrawlerDataService {
   /**
    * 球队近常规赛场次（默认最多 10 场，新→旧）。
    *
-   * <p>优先请求 stats.nba.com，避免镜像内旧的 {@code team_recent_games_*.json} 长期覆盖已更新的分区战绩。
-   * 若线上无法访问 NBA Stats，再回退到爬虫目录中的 JSON。
+   * <p>优先读爬虫写入的 {@code team_recent_games_*.json}（由 {@code ./更新} 生成），避免每次请求都访问
+   * stats.nba.com 导致长时间阻塞。仅当本地无该队数据时再请求 NBA Stats（短超时 + 内存缓存）。
    */
   public List<Map<String, Object>> getTeamRecentGames(String abbrUpper, int seasonStartYear) {
     String abbr = abbrUpper.trim().toUpperCase(Locale.ROOT);
     if (abbr.isEmpty()) {
       return List.of();
+    }
+    List<Map<String, Object>> fromFile = loadTeamRecentGamesFromFiles(abbr, seasonStartYear);
+    if (!fromFile.isEmpty()) {
+      return fromFile;
     }
     String liveKey = abbr + ":" + seasonStartYear;
     long now = System.currentTimeMillis();
@@ -796,7 +802,7 @@ public class NbaCrawlerDataService {
           liveKey, new RecentGamesLiveCache(now + RECENT_GAMES_LIVE_CACHE_TTL_MS, live));
       return live;
     }
-    return loadTeamRecentGamesFromFiles(abbr, seasonStartYear);
+    return List.of();
   }
 
   private List<Map<String, Object>> loadTeamRecentGamesFromFiles(String abbr, int seasonStartYear) {
@@ -930,7 +936,7 @@ public class NbaCrawlerDataService {
       HttpRequest req =
           HttpRequest.newBuilder()
               .uri(URI.create(url))
-              .timeout(Duration.ofSeconds(26))
+              .timeout(NBA_STATS_RECENT_GAMES_TIMEOUT)
               .header(
                   "User-Agent",
                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
@@ -941,13 +947,13 @@ public class NbaCrawlerDataService {
       HttpResponse<String> resp =
           NBA_STATS_HTTP.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
       if (resp.statusCode() != 200) {
-        log.warn("team recent games: stats.nba.com HTTP {}", resp.statusCode());
+        log.debug("team recent games: stats.nba.com HTTP {}", resp.statusCode());
         return List.of();
       }
       JsonNode root = objectMapper.readTree(resp.body());
       return parseLeagueGameFinderRows(root, 10);
     } catch (Exception e) {
-      log.warn("team recent games live fetch failed: {}", e.getMessage());
+      log.debug("team recent games live fetch failed: {}", e.getMessage());
       return List.of();
     }
   }
