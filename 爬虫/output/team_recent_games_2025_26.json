@@ -1,6 +1,13 @@
 {
   "OKC": [
     {
+      "gameDate": "2026-04-10",
+      "matchup": "OKC @ DEN",
+      "wl": "L",
+      "pts": 107,
+      "oppPts": 127
+    },
+    {
       "gameDate": "2026-04-08",
       "matchup": "OKC @ LAC",
       "wl": "W",
@@ -62,16 +69,16 @@
       "wl": "W",
       "pts": 123,
       "oppPts": 103
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "OKC @ WAS",
-      "wl": "W",
-      "pts": 132,
-      "oppPts": 111
     }
   ],
   "DET": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "DET @ CHA",
+      "wl": "W",
+      "pts": 118,
+      "oppPts": 100
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "DET vs. MIL",
@@ -134,16 +141,16 @@
       "wl": "L",
       "pts": 129,
       "oppPts": 130
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "DET vs. LAL",
-      "wl": "W",
-      "pts": 113,
-      "oppPts": 110
     }
   ],
   "SAS": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "SAS vs. DAL",
+      "wl": "W",
+      "pts": 139,
+      "oppPts": 120
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "SAS vs. POR",
@@ -206,16 +213,23 @@
       "wl": "W",
       "pts": 136,
       "oppPts": 111
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "SAS vs. IND",
-      "wl": "W",
-      "pts": 134,
-      "oppPts": 119
     }
   ],
   "BOS": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "BOS vs. NOP",
+      "wl": "W",
+      "pts": 144,
+      "oppPts": 118
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "BOS @ NYK",
+      "wl": "L",
+      "pts": 106,
+      "oppPts": 112
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "BOS vs. CHA",
@@ -271,23 +285,16 @@
       "wl": "W",
       "pts": 119,
       "oppPts": 109
-    },
-    {
-      "gameDate": "2026-03-22",
-      "matchup": "BOS vs. MIN",
-      "wl": "L",
-      "pts": 92,
-      "oppPts": 102
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "BOS @ MEM",
-      "wl": "W",
-      "pts": 117,
-      "oppPts": 112
     }
   ],
   "DEN": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "DEN vs. OKC",
+      "wl": "W",
+      "pts": 127,
+      "oppPts": 107
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "DEN vs. MEM",
@@ -350,16 +357,23 @@
       "wl": "W",
       "pts": 128,
       "oppPts": 112
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "DEN vs. TOR",
-      "wl": "W",
-      "pts": 121,
-      "oppPts": 115
     }
   ],
   "NYK": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "NYK vs. TOR",
+      "wl": "W",
+      "pts": 112,
+      "oppPts": 95
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "NYK vs. BOS",
+      "wl": "W",
+      "pts": 112,
+      "oppPts": 106
+    },
     {
       "gameDate": "2026-04-06",
       "matchup": "NYK @ ATL",
@@ -415,23 +429,23 @@
       "wl": "W",
       "pts": 145,
       "oppPts": 113
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "NYK @ BKN",
-      "wl": "W",
-      "pts": 93,
-      "oppPts": 92
-    },
-    {
-      "gameDate": "2026-03-17",
-      "matchup": "NYK vs. IND",
-      "wl": "W",
-      "pts": 136,
-      "oppPts": 110
     }
   ],
   "LAL": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "LAL vs. PHX",
+      "wl": "W",
+      "pts": 101,
+      "oppPts": 73
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "LAL @ GSW",
+      "wl": "W",
+      "pts": 119,
+      "oppPts": 103
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "LAL vs. OKC",
@@ -487,23 +501,16 @@
       "wl": "L",
       "pts": 110,
       "oppPts": 113
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "LAL @ ORL",
-      "wl": "W",
-      "pts": 105,
-      "oppPts": 104
-    },
-    {
-      "gameDate": "2026-03-19",
-      "matchup": "LAL @ MIA",
-      "wl": "W",
-      "pts": 134,
-      "oppPts": 126
     }
   ],
   "CLE": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "CLE @ ATL",
+      "wl": "L",
+      "pts": 102,
+      "oppPts": 124
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "CLE vs. ATL",
@@ -566,22 +573,29 @@
       "wl": "W",
       "pts": 136,
       "oppPts": 131
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "CLE @ NOP",
-      "wl": "W",
-      "pts": 111,
-      "oppPts": 106
     }
   ],
   "HOU": [
     {
+      "gameDate": "2026-04-10",
+      "matchup": "HOU vs. MIN",
+      "wl": "L",
+      "pts": 132,
+      "oppPts": 136
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "HOU vs. PHI",
+      "wl": "W",
+      "pts": 113,
+      "oppPts": 102
+    },
+    {
       "gameDate": "2026-04-07",
       "matchup": "HOU @ PHX",
       "wl": "W",
-      "pts": 117,
-      "oppPts": 107
+      "pts": 119,
+      "oppPts": 105
     },
     {
       "gameDate": "2026-04-05",
@@ -631,23 +645,16 @@
       "wl": "L",
       "pts": 108,
       "oppPts": 110
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "HOU @ CHI",
-      "wl": "L",
-      "pts": 124,
-      "oppPts": 132
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "HOU vs. MIA",
-      "wl": "W",
-      "pts": 123,
-      "oppPts": 122
     }
   ],
   "ATL": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "ATL vs. CLE",
+      "wl": "W",
+      "pts": 124,
+      "oppPts": 102
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "ATL @ CLE",
@@ -710,16 +717,16 @@
       "wl": "W",
       "pts": 146,
       "oppPts": 107
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "ATL vs. GSW",
-      "wl": "W",
-      "pts": 126,
-      "oppPts": 110
     }
   ],
   "MIN": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "MIN @ HOU",
+      "wl": "W",
+      "pts": 136,
+      "oppPts": 132
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "MIN @ ORL",
@@ -782,16 +789,23 @@
       "wl": "W",
       "pts": 102,
       "oppPts": 92
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "MIN vs. POR",
-      "wl": "L",
-      "pts": 104,
-      "oppPts": 108
     }
   ],
   "TOR": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "TOR @ NYK",
+      "wl": "L",
+      "pts": 95,
+      "oppPts": 112
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "TOR vs. MIA",
+      "wl": "W",
+      "pts": 128,
+      "oppPts": 114
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "TOR vs. MIA",
@@ -847,23 +861,16 @@
       "wl": "L",
       "pts": 94,
       "oppPts": 119
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "TOR @ UTA",
-      "wl": "W",
-      "pts": 143,
-      "oppPts": 127
-    },
-    {
-      "gameDate": "2026-03-22",
-      "matchup": "TOR @ PHX",
-      "wl": "L",
-      "pts": 98,
-      "oppPts": 120
     }
   ],
   "PHO": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "PHX @ LAL",
+      "wl": "L",
+      "pts": 73,
+      "oppPts": 101
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "PHX vs. DAL",
@@ -875,8 +882,8 @@
       "gameDate": "2026-04-07",
       "matchup": "PHX vs. HOU",
       "wl": "L",
-      "pts": 103,
-      "oppPts": 121
+      "pts": 105,
+      "oppPts": 119
     },
     {
       "gameDate": "2026-04-05",
@@ -926,16 +933,16 @@
       "wl": "W",
       "pts": 120,
       "oppPts": 98
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "PHX vs. MIL",
-      "wl": "L",
-      "pts": 105,
-      "oppPts": 108
     }
   ],
   "ORL": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "ORL @ CHI",
+      "wl": "W",
+      "pts": 127,
+      "oppPts": 103
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "ORL vs. MIN",
@@ -998,16 +1005,23 @@
       "wl": "L",
       "pts": 131,
       "oppPts": 136
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "ORL vs. IND",
-      "wl": "L",
-      "pts": 126,
-      "oppPts": 128
     }
   ],
   "PHI": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "PHI @ IND",
+      "wl": "W",
+      "pts": 105,
+      "oppPts": 94
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "PHI @ HOU",
+      "wl": "L",
+      "pts": 102,
+      "oppPts": 113
+    },
     {
       "gameDate": "2026-04-06",
       "matchup": "PHI @ SAS",
@@ -1063,95 +1077,16 @@
       "wl": "L",
       "pts": 103,
       "oppPts": 123
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "PHI @ UTA",
-      "wl": "W",
-      "pts": 126,
-      "oppPts": 116
-    },
-    {
-      "gameDate": "2026-03-19",
-      "matchup": "PHI @ SAC",
-      "wl": "W",
-      "pts": 139,
-      "oppPts": 118
-    }
-  ],
-  "LAC": [
-    {
-      "gameDate": "2026-04-08",
-      "matchup": "LAC vs. OKC",
-      "wl": "L",
-      "pts": 110,
-      "oppPts": 128
-    },
-    {
-      "gameDate": "2026-04-07",
-      "matchup": "LAC vs. DAL",
-      "wl": "W",
-      "pts": 116,
-      "oppPts": 107
-    },
-    {
-      "gameDate": "2026-04-05",
-      "matchup": "LAC @ SAC",
-      "wl": "W",
-      "pts": 138,
-      "oppPts": 109
-    },
-    {
-      "gameDate": "2026-04-02",
-      "matchup": "LAC vs. SAS",
-      "wl": "L",
-      "pts": 99,
-      "oppPts": 118
-    },
-    {
-      "gameDate": "2026-03-31",
-      "matchup": "LAC vs. POR",
-      "wl": "L",
-      "pts": 104,
-      "oppPts": 114
-    },
-    {
-      "gameDate": "2026-03-29",
-      "matchup": "LAC @ MIL",
-      "wl": "W",
-      "pts": 127,
-      "oppPts": 113
-    },
-    {
-      "gameDate": "2026-03-27",
-      "matchup": "LAC @ IND",
-      "wl": "W",
-      "pts": 114,
-      "oppPts": 113
-    },
-    {
-      "gameDate": "2026-03-25",
-      "matchup": "LAC vs. TOR",
-      "wl": "W",
-      "pts": 119,
-      "oppPts": 94
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "LAC vs. MIL",
-      "wl": "W",
-      "pts": 129,
-      "oppPts": 96
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "LAC @ DAL",
-      "wl": "W",
-      "pts": 138,
-      "oppPts": 131
     }
   ],
   "POR": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "POR vs. LAC",
+      "wl": "W",
+      "pts": 116,
+      "oppPts": 97
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "POR @ SAS",
@@ -1214,16 +1149,16 @@
       "wl": "L",
       "pts": 112,
       "oppPts": 128
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "POR @ MIN",
-      "wl": "W",
-      "pts": 108,
-      "oppPts": 104
     }
   ],
   "CHO": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "CHA vs. DET",
+      "wl": "L",
+      "pts": 100,
+      "oppPts": 118
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "CHA @ BOS",
@@ -1286,16 +1221,95 @@
       "wl": "W",
       "pts": 134,
       "oppPts": 90
+    }
+  ],
+  "LAC": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "LAC @ POR",
+      "wl": "L",
+      "pts": 97,
+      "oppPts": 116
     },
     {
-      "gameDate": "2026-03-21",
-      "matchup": "CHA vs. MEM",
+      "gameDate": "2026-04-08",
+      "matchup": "LAC vs. OKC",
+      "wl": "L",
+      "pts": 110,
+      "oppPts": 128
+    },
+    {
+      "gameDate": "2026-04-07",
+      "matchup": "LAC vs. DAL",
       "wl": "W",
-      "pts": 124,
-      "oppPts": 101
+      "pts": 116,
+      "oppPts": 103
+    },
+    {
+      "gameDate": "2026-04-05",
+      "matchup": "LAC @ SAC",
+      "wl": "W",
+      "pts": 138,
+      "oppPts": 109
+    },
+    {
+      "gameDate": "2026-04-02",
+      "matchup": "LAC vs. SAS",
+      "wl": "L",
+      "pts": 99,
+      "oppPts": 118
+    },
+    {
+      "gameDate": "2026-03-31",
+      "matchup": "LAC vs. POR",
+      "wl": "L",
+      "pts": 104,
+      "oppPts": 114
+    },
+    {
+      "gameDate": "2026-03-29",
+      "matchup": "LAC @ MIL",
+      "wl": "W",
+      "pts": 127,
+      "oppPts": 113
+    },
+    {
+      "gameDate": "2026-03-27",
+      "matchup": "LAC @ IND",
+      "wl": "W",
+      "pts": 114,
+      "oppPts": 113
+    },
+    {
+      "gameDate": "2026-03-25",
+      "matchup": "LAC vs. TOR",
+      "wl": "W",
+      "pts": 119,
+      "oppPts": 94
+    },
+    {
+      "gameDate": "2026-03-23",
+      "matchup": "LAC vs. MIL",
+      "wl": "W",
+      "pts": 129,
+      "oppPts": 96
     }
   ],
   "GSW": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "GSW @ SAC",
+      "wl": "L",
+      "pts": 118,
+      "oppPts": 124
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "GSW vs. LAL",
+      "wl": "L",
+      "pts": 103,
+      "oppPts": 119
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "GSW vs. SAC",
@@ -1351,23 +1365,23 @@
       "wl": "W",
       "pts": 137,
       "oppPts": 131
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "GSW @ ATL",
-      "wl": "L",
-      "pts": 110,
-      "oppPts": 126
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "GSW @ DET",
-      "wl": "L",
-      "pts": 101,
-      "oppPts": 115
     }
   ],
   "MIA": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "MIA @ WAS",
+      "wl": "W",
+      "pts": 140,
+      "oppPts": 117
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "MIA @ TOR",
+      "wl": "L",
+      "pts": 114,
+      "oppPts": 128
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "MIA @ TOR",
@@ -1423,23 +1437,16 @@
       "wl": "L",
       "pts": 111,
       "oppPts": 136
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "MIA @ HOU",
-      "wl": "L",
-      "pts": 122,
-      "oppPts": 123
-    },
-    {
-      "gameDate": "2026-03-19",
-      "matchup": "MIA vs. LAL",
-      "wl": "L",
-      "pts": 126,
-      "oppPts": 134
     }
   ],
   "MIL": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "MIL vs. BKN",
+      "wl": "W",
+      "pts": 125,
+      "oppPts": 108
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "MIL @ DET",
@@ -1502,16 +1509,16 @@
       "wl": "L",
       "pts": 99,
       "oppPts": 130
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "MIL @ LAC",
-      "wl": "L",
-      "pts": 96,
-      "oppPts": 129
     }
   ],
   "NOP": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "NOP @ BOS",
+      "wl": "L",
+      "pts": 118,
+      "oppPts": 144
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "NOP vs. UTA",
@@ -1574,16 +1581,23 @@
       "wl": "L",
       "pts": 106,
       "oppPts": 111
-    },
-    {
-      "gameDate": "2026-03-19",
-      "matchup": "NOP vs. LAC",
-      "wl": "W",
-      "pts": 105,
-      "oppPts": 99
     }
   ],
   "CHI": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "CHI vs. ORL",
+      "wl": "L",
+      "pts": 103,
+      "oppPts": 127
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "CHI @ WAS",
+      "wl": "W",
+      "pts": 119,
+      "oppPts": 108
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "CHI @ WAS",
@@ -1639,23 +1653,16 @@
       "wl": "L",
       "pts": 137,
       "oppPts": 157
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "CHI vs. HOU",
-      "wl": "W",
-      "pts": 132,
-      "oppPts": 124
-    },
-    {
-      "gameDate": "2026-03-19",
-      "matchup": "CHI vs. CLE",
-      "wl": "L",
-      "pts": 110,
-      "oppPts": 115
     }
   ],
   "MEM": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "MEM @ UTA",
+      "wl": "L",
+      "pts": 101,
+      "oppPts": 147
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "MEM @ DEN",
@@ -1718,16 +1725,16 @@
       "wl": "L",
       "pts": 98,
       "oppPts": 123
-    },
-    {
-      "gameDate": "2026-03-23",
-      "matchup": "MEM @ ATL",
-      "wl": "L",
-      "pts": 107,
-      "oppPts": 146
     }
   ],
   "DAL": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "DAL @ SAS",
+      "wl": "L",
+      "pts": 120,
+      "oppPts": 139
+    },
     {
       "gameDate": "2026-04-08",
       "matchup": "DAL @ PHX",
@@ -1790,16 +1797,23 @@
       "wl": "L",
       "pts": 131,
       "oppPts": 137
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "DAL vs. LAC",
-      "wl": "L",
-      "pts": 131,
-      "oppPts": 138
     }
   ],
   "BRK": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "BKN @ MIL",
+      "wl": "L",
+      "pts": 108,
+      "oppPts": 125
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "BKN vs. IND",
+      "wl": "L",
+      "pts": 94,
+      "oppPts": 123
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "BKN vs. MIL",
@@ -1855,23 +1869,23 @@
       "wl": "L",
       "pts": 99,
       "oppPts": 134
-    },
-    {
-      "gameDate": "2026-03-22",
-      "matchup": "BKN @ SAC",
-      "wl": "L",
-      "pts": 122,
-      "oppPts": 126
-    },
-    {
-      "gameDate": "2026-03-20",
-      "matchup": "BKN vs. NYK",
-      "wl": "L",
-      "pts": 92,
-      "oppPts": 93
     }
   ],
   "IND": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "IND vs. PHI",
+      "wl": "L",
+      "pts": 94,
+      "oppPts": 105
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "IND @ BKN",
+      "wl": "W",
+      "pts": 123,
+      "oppPts": 94
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "IND vs. MIN",
@@ -1927,23 +1941,16 @@
       "wl": "W",
       "pts": 128,
       "oppPts": 126
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "IND @ SAS",
-      "wl": "L",
-      "pts": 119,
-      "oppPts": 134
-    },
-    {
-      "gameDate": "2026-03-18",
-      "matchup": "IND vs. POR",
-      "wl": "L",
-      "pts": 119,
-      "oppPts": 127
     }
   ],
   "SAC": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "SAC vs. GSW",
+      "wl": "W",
+      "pts": 124,
+      "oppPts": 118
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "SAC @ GSW",
@@ -2006,16 +2013,16 @@
       "wl": "W",
       "pts": 126,
       "oppPts": 122
-    },
-    {
-      "gameDate": "2026-03-19",
-      "matchup": "SAC vs. PHI",
-      "wl": "L",
-      "pts": 118,
-      "oppPts": 139
     }
   ],
   "UTA": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "UTA vs. MEM",
+      "wl": "W",
+      "pts": 147,
+      "oppPts": 101
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "UTA @ NOP",
@@ -2078,16 +2085,23 @@
       "wl": "L",
       "pts": 127,
       "oppPts": 143
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "UTA vs. PHI",
-      "wl": "L",
-      "pts": 116,
-      "oppPts": 126
     }
   ],
   "WAS": [
+    {
+      "gameDate": "2026-04-10",
+      "matchup": "WAS vs. MIA",
+      "wl": "L",
+      "pts": 117,
+      "oppPts": 140
+    },
+    {
+      "gameDate": "2026-04-09",
+      "matchup": "WAS vs. CHI",
+      "wl": "L",
+      "pts": 108,
+      "oppPts": 119
+    },
     {
       "gameDate": "2026-04-07",
       "matchup": "WAS vs. CHI",
@@ -2143,20 +2157,6 @@
       "wl": "W",
       "pts": 133,
       "oppPts": 110
-    },
-    {
-      "gameDate": "2026-03-22",
-      "matchup": "WAS @ NYK",
-      "wl": "L",
-      "pts": 113,
-      "oppPts": 145
-    },
-    {
-      "gameDate": "2026-03-21",
-      "matchup": "WAS vs. OKC",
-      "wl": "L",
-      "pts": 111,
-      "oppPts": 132
     }
   ]
 }
