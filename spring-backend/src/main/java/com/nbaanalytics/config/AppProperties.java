@@ -6,6 +6,9 @@ import java.util.Set;
 import java.util.stream.Stream;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * 集中配置：JWT、CORS、爬虫目录（Zeabur / 本地需指向含 output 的爬虫根目录）。
+ */
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
 
@@ -95,6 +98,7 @@ public class AppProperties {
     }
   }
 
+  /** 爬虫：home=output 与 nba_player_crawler.py 所在目录；outputDir 可单独覆盖 JSON 目录；python 可指定 venv */
   public static class Crawler {
     private String home = "";
     private String outputDir = "";

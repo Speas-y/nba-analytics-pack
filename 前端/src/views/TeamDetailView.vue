@@ -1,4 +1,5 @@
 <script setup>
+/** 球队详情：阵容、近战场次 API、Chart.js 分析图 */
 import { ref, computed, watch, onBeforeUnmount, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { Chart } from "chart.js/auto";

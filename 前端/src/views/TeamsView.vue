@@ -1,4 +1,5 @@
 <script setup>
+/** 球队列表：按东西部分区与战绩/场均排序展示 */
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNbaStore } from "../stores/nba";

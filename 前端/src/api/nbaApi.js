@@ -1,8 +1,13 @@
+/**
+ * 与 Zeabur 等部署的后端通信：基址来自环境变量 VITE_API_BASE（生产一般为 https://你的服务/api）。
+ * scope：常规赛 / 季后赛 / 合并，由 VITE_STATS_SCOPE 控制，默认 regular。
+ */
 const baseUrl = () =>
   String(import.meta.env.VITE_API_BASE || "http://localhost:3000/api").replace(/\/$/, "");
 
 const scope = () => import.meta.env.VITE_STATS_SCOPE || "regular";
 
+/** 统一 fetch：自动拼接 API 基址、解析 JSON、把 Spring 错误信息转成 Error */
 async function nbaFetch(path, init = {}) {
   const r = await fetch(`${baseUrl()}${path}`, init);
   const txt = await r.text();
@@ -22,10 +27,12 @@ export function nbaApiScope() {
   return scope();
 }
 
+/** 后端从爬虫 output 扫描得到的赛季列表（用于赛季下拉框） */
 export async function seasons() {
   return nbaFetch("/public/nba/seasons");
 }
 
+/** 得分榜：按场均分降序，受 limit / minGames 约束 */
 export async function leaderboard(seasonStartYear, opt = {}) {
   const limit = opt.limit ?? 600;
   const minGames = opt.minGames ?? 1;
@@ -35,12 +42,16 @@ export async function leaderboard(seasonStartYear, opt = {}) {
   );
 }
 
+/** 球队汇总：场均、队内得分王、若存在战绩 JSON 则带分区排名与胜负 */
 export async function teams(seasonStartYear) {
   const sc = encodeURIComponent(scope());
   return nbaFetch(`/public/nba/teams?season=${seasonStartYear}&scope=${sc}`);
 }
 
-/** @returns {Promise<Array<{ gameDate: string, matchup: string, wl: string, pts: number, oppPts?: number, win: boolean }>>} */
+/**
+ * 球队近若干场常规赛比分（后端优先读爬虫 JSON，无则短时请求 NBA Stats）。
+ * @returns {Promise<Array<{ gameDate: string, matchup: string, wl: string, pts: number, oppPts?: number, win: boolean }>>}
+ */
 export async function teamRecentGames(teamAbbr, seasonStartYear) {
   const sc = encodeURIComponent(scope());
   const abbr = encodeURIComponent(String(teamAbbr).toUpperCase());
@@ -49,6 +60,7 @@ export async function teamRecentGames(teamAbbr, seasonStartYear) {
   );
 }
 
+/** 球员详情页：场均与元数据（数据源自爬虫 per-game JSON） */
 export async function playerDetail(playerId, seasonStartYear) {
   const sc = encodeURIComponent(scope());
   return nbaFetch(

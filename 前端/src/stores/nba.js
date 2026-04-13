@@ -1,3 +1,7 @@
+/**
+ * 全局 NBA 数据状态：赛季、排行榜、球队列表、球员详情缓存；首次加载时并行拉取 i18n 映射与赛季列表。
+ * 赛季年份会持久化到 localStorage，刷新页面仍保持用户选择。
+ */
 import { defineStore } from "pinia";
 import * as api from "../api/nbaApi";
 import {
@@ -27,6 +31,7 @@ export const useNbaStore = defineStore("nba", {
     detailById: {},
   }),
   getters: {
+    /** 展示用赛季文案，如 2024–25 */
     seasonLabel: (s) => {
       const y = s.seasonYear;
       if (y == null) return "";
@@ -39,6 +44,7 @@ export const useNbaStore = defineStore("nba", {
     headshot: () => (brSlug) => nbaHeadshotUrl(brSlug),
   },
   actions: {
+    /** 读本地缓存的赛季起始年；无则回退为当前日历年 */
     getSeasonYear() {
       if (this.seasonYear != null) return this.seasonYear;
       const raw = localStorage.getItem(STORAGE_YEAR);
@@ -46,12 +52,17 @@ export const useNbaStore = defineStore("nba", {
       if (!Number.isNaN(n)) return n;
       return new Date().getFullYear();
     },
+    /** 写入赛季并同步 localStorage */
     setSeasonYear(y) {
       const n = Number(y);
       if (!Number.isFinite(n)) return;
       localStorage.setItem(STORAGE_YEAR, String(n));
       this.seasonYear = n;
     },
+    /**
+     * 首屏加载：拉取 player-zh / br-slug 映射、赛季列表，再拉取当前赛季的 leaderboard + 球队表。
+     * 失败时 status=error，App 展示排查提示（后端/爬虫/VITE_API_BASE）。
+     */
     async loadBundle() {
       this.status = "loading";
       this.error = "";
@@ -96,9 +107,11 @@ export const useNbaStore = defineStore("nba", {
         this.error = (e && e.message) || String(e);
       }
     },
+    /** 球员详情页写入缓存，避免重复请求 */
     setDetail(id, detail) {
       this.detailById = { ...this.detailById, [id]: detail };
     },
+    /** 切换全局赛季：仅刷新排行榜与球队，清空 detail 缓存 */
     async changeSeason(y) {
       this.setSeasonYear(y);
       this.status = "loading";

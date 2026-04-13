@@ -1,4 +1,5 @@
 <script setup>
+/** 球员列表：客户端在 leaderboard 中筛选 */
 import { ref, computed, watch, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useNbaStore } from "../stores/nba";

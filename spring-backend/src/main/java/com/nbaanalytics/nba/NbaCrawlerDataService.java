@@ -35,9 +35,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * 业务核心：读取爬虫产物（{@code 爬虫/output} 下 JSON），提供赛季列表、得分榜、球队汇总、球员详情、双人对照、球队近战场次等 API
+ * 所需数据。
+ *
+ * <p><b>路径解析</b>：优先 {@code app.crawler.home}、{@code app.crawler.output-dir}；未配置时在若干相对路径中探测
+ * {@code nba_player_crawler.py}，以兼容本地 IDE 工作目录、Zeabur 容器内 / 仓库根等不同启动方式。
+ *
+ * <p><b>缓存</b>：按文件 mtime 缓存解析后的 JsonNode；球队近期比赛在「无本地 JSON」时对 NBA Stats 结果做短期内存缓存。
+ *
+ * <p><b>i18n</b>：{@link #readI18nJsonFile} 读取仓库根 {@code nba-pc-analytics/*.json}，供前端拉取中英映射。
+ */
 @Service
 public class NbaCrawlerDataService {
 
+  /** 球队列表接口的返回体：球队行 + 是否已合并联盟战绩 + 诊断说明（日志/排错） */
   public record TeamsSummaryBundle(
       List<Map<String, Object>> teams, boolean standingsMerged, String standingsPathOrHint) {}
 
@@ -52,6 +64,7 @@ public class NbaCrawlerDataService {
 
   private final AppProperties appProperties;
   private final ObjectMapper objectMapper;
+  /** 已读 JSON 文件：键为绝对路径字符串，值为 (mtime, 解析树)，避免每次请求重复 IO/解析 */
   private final Map<String, FileCache> jsonCache = new ConcurrentHashMap<>();
   /** 本地无该队近 10 场时，在线结果的短期缓存（仅缓存非空结果）。 */
   private final Map<String, RecentGamesLiveCache> recentGamesLiveCache = new ConcurrentHashMap<>();
@@ -69,11 +82,13 @@ public class NbaCrawlerDataService {
     this.objectMapper = objectMapper;
   }
 
+  /** 运维或测试时可调用，强制下次重新读盘 */
   public void clearJsonCache() {
     jsonCache.clear();
     recentGamesLiveCache.clear();
   }
 
+  /** 在未配置 crawler.home 时，向上/向旁试探「爬虫」目录位置 */
   private Path resolveDefaultCrawlerHome() {
     Path cwd = Paths.get("").toAbsolutePath();
     List<Path> candidates =
@@ -144,6 +159,7 @@ public class NbaCrawlerDataService {
     return seasonStartYear + "_" + String.format("%02d", y2);
   }
 
+  /** 读 JSON 文件并带 mtime 缓存；不存在或解析失败抛 HTTP 异常 */
   private JsonNode readJsonCached(Path absPath) {
     if (!Files.isRegularFile(absPath)) {
       throw new ResponseStatusException(
@@ -210,6 +226,9 @@ public class NbaCrawlerDataService {
     return getOutputDir().resolve(fname);
   }
 
+  /**
+   * 球员搜索：在「最新」{@code player_directory_*.json} 中按姓名/姓在前 模糊匹配，最多 100 条。
+   */
   public List<Map<String, Object>> searchPlayers(String query) {
     String q = query.trim().toLowerCase(Locale.ROOT);
     if (q.isEmpty()) return List.of();
@@ -324,6 +343,9 @@ public class NbaCrawlerDataService {
     return o;
   }
 
+  /**
+   * 按 scope 取统计行：regular / playoff 单文件；all 时合并两季并按出场数加权场均（见 {@link #mergeTwoStatRows}）。
+   */
   private List<JsonNode> rowsForScope(int seasonStartYear, String scope) {
     List<JsonNode> reg = loadStatsRowsOrNull(seasonStartYear, "regular");
     List<JsonNode> post = loadStatsRowsOrNull(seasonStartYear, "playoff");
@@ -344,6 +366,7 @@ public class NbaCrawlerDataService {
     return new ArrayList<>(m.values());
   }
 
+  /** 扫描 output 下 player_stats 文件名，推断有哪些赛季可选 */
   public List<Map<String, Object>> listAvailableSeasons() {
     Path outDir = getOutputDir();
     if (!Files.isDirectory(outDir)) return List.of();
@@ -371,6 +394,9 @@ public class NbaCrawlerDataService {
         .toList();
   }
 
+  /**
+   * 得分排行榜：从 per-game 统计筛 minimum 出场，按场均得分降序，补充命中率等展示字段。
+   */
   public List<Map<String, Object>> getLeaderboard(
       int seasonStartYear, String scope, int limit, int minGames) {
     List<JsonNode> rows = rowsForScope(seasonStartYear, scope);
@@ -433,6 +459,9 @@ public class NbaCrawlerDataService {
     return getTeamsSummaryBundle(seasonStartYear, scope).teams();
   }
 
+  /**
+   * 球队页数据：按队聚合 per-game，取队内得分最高者为「得分王」；若存在 {@code league_standings_*.json} 且索引充足则合并分区排名与战绩并排序。
+   */
   public TeamsSummaryBundle getTeamsSummaryBundle(int seasonStartYear, String scope) {
     List<JsonNode> rows = rowsForScope(seasonStartYear, scope);
     if (rows.isEmpty()) {
@@ -647,6 +676,9 @@ public class NbaCrawlerDataService {
     return "";
   }
 
+  /**
+   * 球员详情：按 scope 取常规赛/季后赛/合并场均；姓名与 brSlug 优先来自统计行，否则回查 directory JSON。
+   */
   public Map<String, Object> getPlayerDetail(int playerId, int seasonStartYear, String scope) {
     List<JsonNode> reg = loadStatsRowsOrNull(seasonStartYear, "regular");
     List<JsonNode> post = loadStatsRowsOrNull(seasonStartYear, "playoff");
@@ -739,6 +771,7 @@ public class NbaCrawlerDataService {
     return root;
   }
 
+  /** 对比两名球员：复用 {@link #getPlayerDetail}，抽取 id/姓名/四项场均 */
   public Map<String, Object> compare(int a, int b, int season, String scope) {
     if (a == b) {
       throw new ResponseStatusException(

@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * 球员详情：从 store 排行榜取行，必要时请求 playerDetail API；含 Chart.js 图表，切换 tab 时销毁/重绘。
+ */
 import { ref, computed, watch, onBeforeUnmount, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { Chart } from "chart.js/auto";

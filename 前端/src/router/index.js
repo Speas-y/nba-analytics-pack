@@ -1,3 +1,7 @@
+/**
+ * 路由：hash 模式（如 #/teams/LAL）无需服务端 rewrite，适合 Vercel 静态托管。
+ * /team 与 /player 为短链别名，与 /teams、/players 同页。
+ */
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import TeamsView from "../views/TeamsView.vue";

@@ -1,4 +1,5 @@
 <script setup>
+/** 首页：得分榜 Top10、东西部展示、联盟场均等（数据来自 Pinia store） */
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNbaStore } from "../stores/nba";

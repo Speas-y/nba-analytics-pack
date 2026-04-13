@@ -1,3 +1,4 @@
+/** Chart.js 暗色主题默认色与字体（与全局 CSS 协调） */
 import { Chart } from "chart.js/auto";
 
 export function applyChartDefaults() {

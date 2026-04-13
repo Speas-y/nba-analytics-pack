@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * 壳布局：顶栏导航、全局赛季选择、分享链接；挂载时拉取 store.loadBundle()。
+ * 子路由在 store.ready 后渲染；loading/error 由本组件统一展示。
+ */
 import { onMounted, watch } from "vue";
 import { useNbaStore } from "./stores/nba";
 const store = useNbaStore();
@@ -9,6 +13,7 @@ function onSeasonChange(e) {
   store.changeSeason(y);
 }
 
+/** 复制当前页 URL（失败则弹窗便于手动复制） */
 async function share() {
   const u = window.location.href;
   try {

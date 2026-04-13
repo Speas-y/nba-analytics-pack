@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/** Spring Security：JWT 无状态会话；/public/** 与 /auth/* 匿名，其余需登录；CORS 放行本地与 Vercel */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

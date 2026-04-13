@@ -1,4 +1,7 @@
-/** 球队中文名、队标、球员名/头像（由爬虫 JSON + store 注入） */
+/**
+ * 展示用 i18n 与静态表：球队中文名、队标 URL、分区；球员中文名与头像依赖 store 注入的 API 映射。
+ * 映射来自后端 /public/nba/i18n/* 或 public 下同名 JSON。
+ */
 
 const TEAM_ZH = {
   ATL: "亚特兰大老鹰",
@@ -118,11 +121,13 @@ const TEAM_CONFERENCE_WEST = new Set([
 let zhMap = {};
 let brToId = {};
 
+/** 由 store 在 loadBundle 时调用，注入球员名与 BR slug → NBA PERSON_ID */
 export function setI18nMaps(zh, br) {
   zhMap = zh || {};
   brToId = br || {};
 }
 
+/** 球队缩写 → 中文队名（无映射则原样返回缩写） */
 export function teamZh(abbr) {
   const u = String(abbr || "").toUpperCase();
   if (!u || u === "—") return "—";

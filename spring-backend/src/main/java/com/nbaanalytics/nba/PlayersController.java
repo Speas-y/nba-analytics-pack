@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 需登录的球员相关接口（与 {@link PublicNbaController} 分离，便于对搜索/对比做鉴权）。
+ * 前端若仅使用公开 API，可只调 {@code /public/nba/**}。
+ */
 @Validated
 @RestController
 @RequestMapping("/players")
@@ -22,11 +26,13 @@ public class PlayersController {
     this.crawler = crawler;
   }
 
+  /** 模糊搜索球员（目录 JSON） */
   @GetMapping("/search")
   public List<Map<String, Object>> search(@RequestParam("q") String q) {
     return crawler.searchPlayers(q != null ? q : "");
   }
 
+  /** 两名球员场均对比 */
   @GetMapping("/compare")
   public Map<String, Object> compare(
       @RequestParam int a,
@@ -40,6 +46,7 @@ public class PlayersController {
     return crawler.compare(a, b, season, scope);
   }
 
+  /** 与 {@code /public/nba/players/{id}/detail} 数据相同，需 JWT */
   @GetMapping("/{id}/detail")
   public Map<String, Object> detail(
       @PathVariable int id,
